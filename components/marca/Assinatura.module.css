@@ -1,0 +1,46 @@
+/* Medidas do Figma (360 × 149,3) convertidas em unidades do próprio container */
+.assinatura {
+  container-type: inline-size;
+  position: relative;
+  display: block;
+  width: 200px;
+  aspect-ratio: 360 / 149.3;
+  color: var(--branco);
+}
+
+.simbolo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25.6cqw;
+  height: 25.6cqw;
+}
+
+.sigla {
+  position: absolute;
+  left: 31.96cqw;
+  top: -5.56cqw;
+  font-weight: 800;
+  font-size: 34.36cqw;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.por {
+  position: absolute;
+  left: 34.3cqw;
+  top: 35.47cqw;
+  font-weight: 500;
+  font-size: 4.35cqw;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.xr {
+  position: absolute;
+  left: 48.06cqw;
+  top: 33.43cqw;
+  width: 51.94cqw;
+  height: auto;
+}

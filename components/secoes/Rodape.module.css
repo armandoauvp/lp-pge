@@ -1,0 +1,65 @@
+.rodape {
+  position: relative;
+  overflow: hidden;
+  background: var(--tinta);
+}
+
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: clamp(56px, 8vw, 96px);
+  border-bottom: var(--fio-escuro);
+}
+
+.chamada {
+  max-width: 20ch;
+  font-size: var(--t-1);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.grade {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
+  gap: 32px 48px;
+  padding-block: 56px;
+}
+
+.assinatura {
+  width: 240px;
+}
+
+.bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--neutro-300);
+  font-style: normal;
+}
+
+.bloco a {
+  display: inline-block;
+  padding-block: 12px;
+  color: var(--branco);
+  text-underline-offset: 4px;
+}
+
+.base {
+  position: relative;
+  z-index: 1;
+  padding-block: 24px 40px;
+  color: var(--neutro-300);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 860px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+}

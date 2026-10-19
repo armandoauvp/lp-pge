@@ -1,0 +1,2318 @@
+<!--
+  PGE, Programa de Governança Empresarial por XR Advisor
+  Bloco único para colar num widget HTML do Elementor (página com template Elementor Canvas, seção em largura total, sem padding).
+  Para configurar o envio do formulário, o checkout e a política de privacidade, edite o objeto CONFIG no início do <script>, no fim deste arquivo.
+  Textos marcados com VALIDAR dependem de confirmação do time do PGE.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+<style>
+/* Tudo preso a #pge para não vazar para o site nem herdar estilos do tema */
+#pge {
+  --pge-tinta: #070d18;
+  --pge-base: #0d1626;
+  --pge-base-600: #2a3852;
+  --pge-base-400: #6b7a93;
+  --pge-acento: #e4604a;
+  --pge-acento-claro: #ff8a76;
+  --pge-acento-suave: #f8c4b8;
+  --pge-fundo: #ebedf2;
+  --pge-neutro-300: #d2d7e0;
+  --pge-neutro-500: #7c8697;
+  --pge-branco: #ffffff;
+  --pge-erro: #b3261e;
+
+  /* Escala do manual em px: o tema pode mexer no font-size do html */
+  --pge-t-display: clamp(40px, 26px + 3.6vw, 64px);
+  --pge-t-1: clamp(30px, 22px + 1.9vw, 40px);
+  --pge-t-2: clamp(22px, 18px + 0.9vw, 28px);
+  --pge-t-destaque: clamp(18px, 17px + 0.3vw, 20px);
+
+  /* Raio da célula do símbolo: 0,34 do lado */
+  --pge-r: 0.34;
+  --pge-r-botao: 15px;
+  --pge-r-campo: 8px;
+  --pge-r-painel: 24px;
+
+  --pge-largura: 1240px;
+  --pge-gutter: clamp(16px, 4vw, 48px);
+  --pge-fio: 1px solid var(--pge-neutro-300);
+  --pge-fio-escuro: 1px solid var(--pge-base-600);
+  --pge-ease: cubic-bezier(0.2, 0, 0, 1);
+  --pge-topo: var(--wp-admin--admin-bar--height, 0px);
+
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--pge-branco);
+  color: var(--pge-base);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+#pge *,
+#pge *::before,
+#pge *::after {
+  box-sizing: border-box;
+}
+
+#pge [hidden] {
+  display: none !important;
+}
+
+#pge :is(h1, h2, h3, h4, p, ul, ol, li, dl, dt, dd, blockquote, figure, figcaption, address, form, fieldset, legend, label, section, header, footer, main, nav, article, span, strong, small) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-transform: none;
+  text-decoration: none;
+  list-style: none;
+  quotes: none;
+  box-shadow: none;
+}
+
+#pge strong {
+  font-weight: 700;
+}
+
+#pge a {
+  color: inherit;
+  background: none;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+#pge :is(button, input, select, textarea) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: none;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  max-width: 100%;
+}
+
+#pge img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#pge svg {
+  display: block;
+  overflow: visible;
+}
+
+#pge :focus-visible {
+  outline: 2px solid var(--pge-acento);
+  outline-offset: 3px;
+}
+
+#pge .pge-escuro :focus-visible {
+  outline-color: var(--pge-acento-claro);
+}
+
+#pge [id] {
+  scroll-margin-top: calc(var(--pge-topo) + 80px);
+}
+
+#pge .pge-wrap {
+  width: 100%;
+  max-width: calc(var(--pge-largura) + 2 * var(--pge-gutter));
+  margin-inline: auto;
+  padding-inline: var(--pge-gutter);
+}
+
+#pge .pge-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+#pge .pge-escuro {
+  background: var(--pge-base);
+  color: var(--pge-branco);
+}
+
+#pge .pge-claro {
+  background: var(--pge-fundo);
+  color: var(--pge-base);
+}
+
+/* Botões: primário coral com texto tinta (5,4:1); hover muda cor, nunca tamanho */
+#pge .pge-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: var(--pge-r-botao);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 150ms var(--pge-ease), border-color 150ms var(--pge-ease), color 150ms var(--pge-ease);
+}
+
+#pge .pge-botao-primario {
+  background: var(--pge-acento);
+  color: var(--pge-tinta);
+}
+
+#pge .pge-botao-primario:hover {
+  background: var(--pge-acento-claro);
+}
+
+#pge .pge-botao-primario:active {
+  background: var(--pge-acento-suave);
+}
+
+#pge .pge-botao-primario:disabled {
+  background: var(--pge-neutro-300);
+  color: var(--pge-base-600);
+  cursor: progress;
+}
+
+#pge .pge-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+/* ---------- Marca ---------- */
+
+/* Logo A (símbolo + sigla). --s é o lado do símbolo; demais medidas vêm do Figma */
+#pge .pge-logo {
+  --s: 28px;
+  position: relative;
+  display: block;
+  width: calc(var(--s) * 3.906);
+  height: var(--s);
+  color: var(--pge-branco);
+}
+
+#pge .pge-logo .pge-simbolo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--s);
+  height: var(--s);
+}
+
+#pge .pge-logo .pge-sigla {
+  position: absolute;
+  left: calc(var(--s) * 1.2484);
+  top: calc(var(--s) * -0.2173);
+  font-size: calc(var(--s) * 1.3423);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+/* Assinatura de realização (Figma 237:33): 360 × 149,3 para símbolo de 92,16 */
+#pge .pge-assinatura {
+  --s: 56px;
+  position: relative;
+  display: block;
+  width: calc(var(--s) * 3.906);
+  height: calc(var(--s) * 1.62);
+  color: var(--pge-branco);
+}
+
+#pge .pge-assinatura .pge-simbolo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--s);
+  height: var(--s);
+}
+
+#pge .pge-assinatura .pge-sigla {
+  position: absolute;
+  left: calc(var(--s) * 1.2484);
+  top: calc(var(--s) * -0.2173);
+  font-size: calc(var(--s) * 1.3423);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+#pge .pge-assinatura .pge-por {
+  position: absolute;
+  left: calc(var(--s) * 1.34);
+  top: calc(var(--s) * 1.3857);
+  font-size: calc(var(--s) * 0.1699);
+  font-weight: 500;
+  line-height: 1;
+}
+
+#pge .pge-assinatura .pge-xr {
+  position: absolute;
+  left: calc(var(--s) * 1.8773);
+  top: calc(var(--s) * 1.3057);
+  width: calc(var(--s) * 2.029);
+  height: auto;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+#pge .pge-cabecalho {
+  position: sticky;
+  top: var(--pge-topo);
+  z-index: 50;
+  background: var(--pge-tinta);
+  border-bottom: var(--pge-fio-escuro);
+}
+
+#pge .pge-cabecalho .pge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  min-height: 80px;
+}
+
+#pge .pge-cabecalho .pge-marca {
+  display: block;
+  padding: 18px 0;
+}
+
+#pge .pge-nav {
+  margin-left: auto;
+}
+
+#pge .pge-nav ul {
+  display: flex;
+  gap: 4px;
+}
+
+#pge .pge-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--pge-r-campo);
+  color: var(--pge-neutro-300);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 150ms var(--pge-ease);
+}
+
+#pge .pge-nav a:hover {
+  color: var(--pge-branco);
+}
+
+#pge .pge-cabecalho .pge-botao {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 15px;
+}
+
+/* ---------- Hero ---------- */
+
+#pge .pge-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--pge-tinta);
+  color: var(--pge-branco);
+}
+
+#pge .pge-malha-hero {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(46vw, 640px);
+  height: auto;
+  aspect-ratio: 1;
+  touch-action: manipulation;
+}
+
+#pge .pge-malha-hero rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: var(--pge-base-600);
+  animation: pge-entra 280ms var(--pge-ease) both;
+}
+
+#pge .pge-malha-hero rect.pge-acento {
+  fill: var(--pge-acento);
+}
+
+@keyframes pge-entra {
+  from {
+    opacity: 0;
+  }
+}
+
+#pge .pge-hero .pge-conteudo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: min(calc(100svh - 80px - var(--pge-topo)), 780px);
+  padding-top: clamp(220px, 30vw, 300px);
+  padding-bottom: clamp(56px, 8vw, 104px);
+  pointer-events: none;
+}
+
+#pge .pge-hero .pge-conteudo > * {
+  pointer-events: auto;
+}
+
+#pge .pge-hero h1 {
+  max-width: 13ch;
+  font-size: var(--pge-t-display);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+#pge .pge-hero .pge-lead {
+  max-width: 54ch;
+  margin-top: 28px;
+  color: var(--pge-neutro-300);
+  font-size: var(--pge-t-destaque);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+#pge .pge-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 40px;
+}
+
+#pge .pge-hero .pge-status {
+  margin-top: 20px;
+  color: var(--pge-neutro-300);
+  font-size: 15px;
+}
+
+/* ---------- Faixa de malha uniforme (interativa) ---------- */
+
+#pge .pge-faixa {
+  position: relative;
+  background: var(--pge-tinta);
+  padding-block: 40px;
+  overflow: hidden;
+}
+
+#pge .pge-faixa-grade {
+  --c: 16px;
+  display: grid;
+  grid-auto-rows: var(--c);
+  row-gap: 18px;
+  justify-content: space-between;
+  min-height: calc(var(--c) * 4 + 18px * 3);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#pge .pge-faixa-grade span {
+  display: block;
+  width: var(--c);
+  height: var(--c);
+  border-radius: calc(var(--c) * var(--pge-r));
+  background: var(--pge-base-600);
+}
+
+#pge .pge-faixa-grade span.pge-pintada {
+  background: var(--pge-acento);
+}
+
+/* ---------- Estágios ---------- */
+
+#pge .pge-estagios {
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 24px 64px;
+  align-items: end;
+}
+
+#pge .pge-h2 {
+  font-size: var(--pge-t-1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+#pge .pge-texto {
+  color: var(--pge-base-600);
+  font-size: 17px;
+}
+
+#pge .pge-escuro .pge-texto {
+  color: var(--pge-neutro-300);
+}
+
+#pge .pge-escada {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(48px, 7vw, 88px);
+  border-top: var(--pge-fio);
+}
+
+#pge .pge-escada li {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px 8px;
+  border-left: var(--pge-fio);
+}
+
+#pge .pge-escada li:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+#pge .pge-pilha {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  gap: 8px;
+  height: 152px;
+  margin-bottom: 28px;
+}
+
+#pge .pge-pilha span {
+  --c: 32px;
+  display: block;
+  width: var(--c);
+  height: var(--c);
+  border-radius: calc(var(--c) * var(--pge-r));
+  background: var(--pge-base-600);
+  transition: background-color 200ms var(--pge-ease), translate 200ms var(--pge-ease);
+}
+
+#pge .pge-escada li:last-child .pge-pilha span:last-child {
+  background: var(--pge-acento);
+}
+
+/* Com JS, as células se preenchem conforme o scroll; sem JS ficam todas cheias */
+#pge.pge-anima .pge-escada li .pge-pilha span:not(.pge-cheia) {
+  background: var(--pge-neutro-300);
+  translate: 0 6px;
+}
+
+#pge .pge-escada h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+#pge .pge-escada p {
+  margin-top: 6px;
+  color: var(--pge-base-600);
+}
+
+/* ---------- Citação sobre foto ---------- */
+
+#pge .pge-citacao {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--pge-base);
+  color: var(--pge-branco);
+}
+
+#pge .pge-citacao .pge-foto-fundo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+/* Véu em Base sobre a foto (manual, página 04). 82% para o texto longo passar em contraste */
+#pge .pge-citacao::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(13 22 38 / 0.82);
+}
+
+#pge .pge-citacao figure {
+  padding-block: clamp(96px, 14vw, 184px);
+}
+
+#pge .pge-aspa {
+  color: var(--pge-acento-claro);
+}
+
+#pge .pge-citacao blockquote {
+  max-width: 30ch;
+  margin-top: 32px;
+  font-size: var(--pge-t-1);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+
+#pge .pge-citacao figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 40px;
+}
+
+#pge .pge-citacao figcaption span {
+  color: var(--pge-neutro-300);
+}
+
+/* ---------- Etapas ---------- */
+
+#pge .pge-etapas {
+  background: var(--pge-branco);
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-etapas-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 48px;
+  padding-bottom: 40px;
+}
+
+#pge .pge-display {
+  font-size: var(--pge-t-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+#pge .pge-etapas-cabeca .pge-texto {
+  max-width: 40ch;
+}
+
+#pge .pge-etapas ol {
+  border-top: 2px solid var(--pge-base);
+}
+
+#pge .pge-etapa {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 3fr) minmax(0, 5fr) minmax(0, 4fr);
+  gap: 16px 32px;
+  align-items: start;
+  padding-block: 32px;
+  border-bottom: var(--pge-fio);
+}
+
+#pge .pge-marcador {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: calc(40px * var(--pge-r));
+  background: var(--pge-acento);
+  color: var(--pge-tinta);
+  font-weight: 700;
+  line-height: 1;
+}
+
+#pge .pge-etapa h3 {
+  padding-top: 4px;
+  font-size: var(--pge-t-2);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+#pge .pge-etapa .pge-aprende {
+  padding-top: 6px;
+  color: var(--pge-base-600);
+}
+
+#pge .pge-etapa .pge-leva {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0 0 24px;
+  border-left: var(--pge-fio);
+  font-weight: 600;
+}
+
+#pge .pge-etapa .pge-leva small {
+  color: var(--pge-base-600);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ---------- Capital e oito pontos ---------- */
+
+#pge .pge-capital {
+  padding-block: clamp(80px, 10vw, 128px);
+}
+
+#pge .pge-capital .pge-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px 80px;
+  align-items: start;
+}
+
+#pge .pge-capital .pge-texto {
+  max-width: 44ch;
+  margin-top: 20px;
+}
+
+#pge .pge-capital h3 {
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pge-neutro-300);
+}
+
+#pge .pge-pontos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: var(--pge-fio-escuro);
+}
+
+#pge .pge-pontos li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  padding: 16px 16px 16px 0;
+  border-bottom: var(--pge-fio-escuro);
+  font-size: var(--pge-t-destaque);
+  font-weight: 500;
+  transition: color 150ms var(--pge-ease);
+}
+
+#pge .pge-pontos li:nth-child(odd) {
+  border-right: var(--pge-fio-escuro);
+}
+
+#pge .pge-pontos li:nth-child(even) {
+  padding-left: 24px;
+}
+
+#pge .pge-pontos li::before {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: calc(14px * var(--pge-r));
+  background: var(--pge-acento-claro);
+  transition: background-color 200ms var(--pge-ease), scale 150ms var(--pge-ease);
+}
+
+/* Com JS os oito acendem em sequência conforme o scroll; todos terminam iguais */
+#pge.pge-anima .pge-pontos li:not(.pge-aceso)::before {
+  background: var(--pge-base-600);
+}
+
+#pge .pge-pontos li:hover::before {
+  background: var(--pge-acento-claro);
+  scale: 1.3;
+}
+
+/* ---------- Resultados ---------- */
+
+#pge .pge-resultados {
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-resultados .pge-h2 {
+  max-width: 18ch;
+}
+
+#pge .pge-cases {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px;
+  margin-top: 48px;
+}
+
+#pge .pge-destaque {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--pge-r-painel);
+  background: var(--pge-branco);
+}
+
+#pge .pge-destaque h3 {
+  font-size: var(--pge-t-2);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+#pge .pge-setor {
+  color: var(--pge-base-600);
+  font-size: 15px;
+}
+
+#pge .pge-grafico {
+  margin-top: 32px;
+}
+
+#pge .pge-grafico ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  height: 260px;
+  border-bottom: var(--pge-fio);
+}
+
+#pge .pge-grafico li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+#pge .pge-grafico .pge-valor {
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+#pge .pge-grafico .pge-barra {
+  display: block;
+  width: 100%;
+  max-width: 64px;
+  height: calc((100% - 34px) * var(--h));
+  border-radius: 10px 10px 0 0;
+  background: var(--pge-neutro-300);
+}
+
+#pge .pge-grafico li:last-child .pge-barra {
+  background: var(--pge-acento);
+}
+
+#pge .pge-grafico .pge-ano {
+  position: absolute;
+  bottom: -30px;
+  color: var(--pge-base-600);
+  font-size: 14px;
+}
+
+#pge .pge-grafico figcaption {
+  margin-top: 40px;
+  color: var(--pge-base-600);
+  font-size: 14px;
+}
+
+#pge .pge-destaque > p:last-child {
+  max-width: 56ch;
+  margin-top: 20px;
+}
+
+#pge .pge-outros li {
+  padding-block: 24px;
+  border-bottom: var(--pge-fio);
+}
+
+#pge .pge-outros li:first-child {
+  padding-top: 0;
+}
+
+#pge .pge-outros h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#pge .pge-outros .pge-numero {
+  margin-top: 12px;
+  font-size: var(--pge-t-destaque);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+#pge .pge-outros .pge-detalhe {
+  margin-top: 6px;
+  color: var(--pge-base-600);
+  font-size: 15px;
+}
+
+#pge .pge-fonte {
+  margin-top: 24px;
+  color: var(--pge-base-600);
+  font-size: 14px;
+}
+
+#pge .pge-depoimentos {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr);
+  gap: 32px 48px;
+  margin-top: clamp(64px, 9vw, 112px);
+  padding-top: 48px;
+  border-top: var(--pge-fio);
+}
+
+#pge .pge-depoimentos .pge-aspa {
+  margin-bottom: 24px;
+  color: var(--pge-acento);
+}
+
+#pge .pge-depoimento-principal blockquote {
+  font-size: var(--pge-t-2);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+#pge .pge-depoimento {
+  padding-top: 54px;
+}
+
+#pge .pge-depoimento blockquote {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+#pge .pge-depoimentos figcaption {
+  margin-top: 20px;
+  color: var(--pge-base-600);
+  font-size: 15px;
+}
+
+#pge .pge-depoimentos figcaption strong {
+  color: var(--pge-base);
+}
+
+#pge .pge-depoimentos figcaption a {
+  display: inline-block;
+  padding-block: 12px;
+  color: var(--pge-base);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Quem conduz ---------- */
+
+#pge .pge-conducao {
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-conducao-cabeca {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 24px clamp(40px, 6vw, 96px);
+  align-items: end;
+}
+
+#pge .pge-conducao-cabeca .pge-assinatura {
+  --s: 44px;
+  margin-bottom: 32px;
+}
+
+#pge .pge-pessoas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px clamp(32px, 5vw, 72px);
+  margin-top: clamp(48px, 7vw, 80px);
+}
+
+#pge .pge-retrato {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--pge-r-painel);
+  background: var(--pge-base-600);
+}
+
+#pge .pge-retrato img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder até chegarem as fotos oficiais: malha uniforme em contraste baixo */
+#pge .pge-retrato-vazio {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#pge .pge-pessoas h3 {
+  margin-top: 24px;
+  font-size: var(--pge-t-2);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+#pge .pge-papel {
+  margin-top: 2px;
+  color: var(--pge-acento-claro);
+  font-weight: 500;
+}
+
+#pge .pge-bio {
+  max-width: 52ch;
+  margin-top: 12px;
+  color: var(--pge-neutro-300);
+}
+
+/* ---------- Perfil ---------- */
+
+#pge .pge-perfil {
+  background: var(--pge-branco);
+  padding-block: clamp(72px, 9vw, 120px);
+}
+
+#pge .pge-perfil .pge-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr);
+  gap: 40px 56px;
+}
+
+#pge .pge-perfil .pge-h2 {
+  max-width: 10ch;
+}
+
+#pge .pge-perfil h3 {
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--pge-base);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#pge .pge-perfil li {
+  position: relative;
+  padding: 18px 0 18px 30px;
+  border-bottom: var(--pge-fio);
+}
+
+#pge .pge-perfil li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 12px;
+  height: 12px;
+  border-radius: calc(12px * var(--pge-r));
+  background: var(--pge-acento);
+}
+
+#pge .pge-perfil .pge-nao li {
+  color: var(--pge-base-600);
+}
+
+#pge .pge-perfil .pge-nao li::before {
+  background: var(--pge-neutro-300);
+}
+
+/* ---------- Interesse ---------- */
+
+#pge .pge-interesse {
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-interesse .pge-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+
+#pge .pge-interesse .pge-texto {
+  max-width: 40ch;
+  margin-top: 20px;
+}
+
+#pge .pge-painel {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--pge-r-painel);
+  background: var(--pge-branco);
+  color: var(--pge-base);
+}
+
+#pge .pge-form {
+  display: grid;
+  gap: 20px;
+}
+
+#pge .pge-campo {
+  display: grid;
+  gap: 8px;
+}
+
+#pge .pge-campo label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+#pge .pge-campo :is(input, select) {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--pge-neutro-500);
+  border-radius: var(--pge-r-campo);
+  background: var(--pge-branco);
+  color: var(--pge-base);
+  font-size: 16px;
+  transition: border-color 150ms var(--pge-ease);
+}
+
+#pge .pge-campo select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230d1626' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+#pge .pge-campo :is(input, select):hover {
+  border-color: var(--pge-base);
+}
+
+#pge .pge-campo :is(input, select):focus-visible {
+  outline: 2px solid var(--pge-acento);
+  outline-offset: 1px;
+  border-color: var(--pge-base);
+}
+
+#pge .pge-campo input::placeholder {
+  color: var(--pge-neutro-500);
+}
+
+#pge .pge-duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+#pge .pge-consentimento {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--pge-base-600);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#pge .pge-consentimento input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--pge-base);
+  appearance: auto;
+}
+
+#pge .pge-consentimento a {
+  color: var(--pge-base);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#pge .pge-erro {
+  padding: 14px 16px;
+  border: 1px solid var(--pge-erro);
+  border-radius: var(--pge-r-campo);
+  background: #fdeceb;
+  color: #8c1d18;
+  font-size: 15px;
+}
+
+#pge .pge-form .pge-botao {
+  justify-self: start;
+}
+
+#pge .pge-sucesso h3 {
+  font-size: var(--pge-t-2);
+  font-weight: 700;
+}
+
+#pge .pge-sucesso p {
+  margin-top: 12px;
+  color: var(--pge-base-600);
+  font-size: 17px;
+}
+
+/* ---------- Perguntas ---------- */
+
+#pge .pge-perguntas {
+  padding-block: clamp(72px, 9vw, 120px);
+}
+
+#pge .pge-perguntas .pge-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 32px 56px;
+}
+
+#pge .pge-faq {
+  border-top: 2px solid var(--pge-base);
+}
+
+#pge .pge-faq details {
+  border-bottom: var(--pge-fio);
+}
+
+#pge .pge-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+  padding-block: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+#pge .pge-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+#pge .pge-sinal {
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: calc(32px * var(--pge-r));
+  background: var(--pge-branco);
+  transition: background-color 150ms var(--pge-ease);
+}
+
+#pge .pge-sinal::before,
+#pge .pge-sinal::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: var(--pge-base);
+  translate: -50% -50%;
+  transition: rotate 200ms var(--pge-ease);
+}
+
+#pge .pge-sinal::after {
+  rotate: 90deg;
+}
+
+#pge .pge-faq summary:hover .pge-sinal {
+  background: var(--pge-neutro-300);
+}
+
+#pge .pge-faq details[open] .pge-sinal {
+  background: var(--pge-acento-suave);
+}
+
+#pge .pge-faq details[open] .pge-sinal::after {
+  rotate: 0deg;
+}
+
+#pge .pge-faq details p {
+  max-width: 62ch;
+  padding-bottom: 24px;
+  color: var(--pge-base-600);
+}
+
+/* ---------- Rodapé ---------- */
+
+#pge .pge-rodape {
+  background: var(--pge-tinta);
+  color: var(--pge-branco);
+}
+
+#pge .pge-rodape-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr);
+  gap: 32px 48px;
+  padding-block: 72px 56px;
+}
+
+#pge .pge-rodape-grade .pge-assinatura {
+  --s: 60px;
+}
+
+#pge .pge-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--pge-neutro-300);
+}
+
+#pge .pge-bloco a {
+  display: inline-block;
+  padding-block: 12px;
+  color: var(--pge-branco);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+#pge .pge-rodape-base {
+  padding-block: 24px 40px;
+  color: var(--pge-neutro-300);
+  font-size: 14px;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 960px) {
+  #pge .pge-nav {
+    display: none;
+  }
+  #pge .pge-cabecalho .pge-botao {
+    margin-left: auto;
+  }
+  #pge .pge-cases,
+  #pge .pge-interesse .pge-wrap {
+    grid-template-columns: 1fr;
+  }
+  #pge .pge-depoimentos {
+    grid-template-columns: 1fr 1fr;
+  }
+  #pge .pge-depoimento-principal {
+    grid-column: 1 / -1;
+  }
+  #pge .pge-depoimento {
+    padding-top: 0;
+  }
+  #pge .pge-perfil .pge-wrap {
+    grid-template-columns: 1fr 1fr;
+  }
+  #pge .pge-perfil .pge-h2 {
+    grid-column: 1 / -1;
+    max-width: none;
+  }
+}
+
+@media (max-width: 900px) {
+  #pge .pge-etapa {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+  #pge .pge-etapa .pge-aprende,
+  #pge .pge-etapa .pge-leva {
+    grid-column: 2;
+  }
+  #pge .pge-etapa .pge-leva {
+    padding-left: 16px;
+  }
+}
+
+@media (max-width: 860px) {
+  #pge .pge-intro,
+  #pge .pge-capital .pge-wrap,
+  #pge .pge-conducao-cabeca,
+  #pge .pge-perguntas .pge-wrap,
+  #pge .pge-rodape-grade {
+    grid-template-columns: 1fr;
+  }
+  #pge .pge-escada {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+  #pge .pge-escada li:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  /* No celular o texto começa abaixo da malha, sem célula atrás do título */
+  #pge .pge-malha-hero {
+    width: 64vw;
+  }
+  #pge .pge-hero .pge-conteudo {
+    min-height: 0;
+    padding-top: calc(64vw * 0.95);
+  }
+  #pge .pge-pessoas,
+  #pge .pge-duplo {
+    grid-template-columns: 1fr;
+  }
+  #pge .pge-retrato {
+    aspect-ratio: 16 / 13;
+  }
+}
+
+@media (max-width: 560px) {
+  #pge .pge-depoimentos,
+  #pge .pge-pontos {
+    grid-template-columns: 1fr;
+  }
+  #pge .pge-pontos li:nth-child(odd) {
+    border-right: 0;
+  }
+  #pge .pge-pontos li:nth-child(even) {
+    padding-left: 0;
+  }
+  #pge .pge-grafico ol {
+    height: 200px;
+    gap: 10px;
+  }
+  #pge .pge-grafico .pge-valor {
+    font-size: 14px;
+  }
+  #pge .pge-faixa-grade {
+    --c: 12px;
+    row-gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #pge .pge-cabecalho .pge-wrap {
+    gap: 16px;
+  }
+  #pge .pge-cabecalho .pge-botao {
+    padding: 0 14px;
+    font-size: 14px;
+  }
+  #pge .pge-escada li {
+    padding: 24px 12px 8px;
+  }
+  #pge .pge-pilha {
+    height: 116px;
+    gap: 6px;
+  }
+  #pge .pge-pilha span {
+    --c: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pge *,
+  #pge *::before,
+  #pge *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+
+<div id="pge">
+  <!-- Desenhos reutilizados da marca -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Símbolo do PGE: geometria do Figma (frame "Símbolo", 92,16 × 92,16). Diagonal usa --pge-diag -->
+      <symbol id="pge-simbolo" viewBox="0 0 92.16 92.16">
+        <g fill="currentColor">
+          <rect x="75.62" y="0" width="16.542" height="16.542" rx="4.632"/>
+          <rect x="55.3" y="0" width="15.596" height="15.596" rx="4.824"/>
+          <rect x="35.92" y="0" width="14.651" height="14.651" rx="4.962"/>
+          <rect x="17.49" y="0" width="13.706" height="13.706" rx="5.044"/>
+          <rect x="0" y="0" width="12.761" height="12.761" rx="5.07"/>
+          <rect x="76.56" y="21.27" width="15.596" height="15.596" rx="4.824"/>
+          <rect x="56.24" y="21.27" width="14.651" height="14.651" rx="4.962"/>
+          <rect x="36.86" y="21.27" width="13.706" height="13.706" rx="5.044"/>
+          <rect x="18.43" y="21.27" width="12.761" height="12.761" rx="5.07"/>
+          <rect x="77.51" y="41.59" width="14.651" height="14.651" rx="4.962"/>
+          <rect x="57.19" y="41.59" width="13.706" height="13.706" rx="5.044"/>
+          <rect x="37.81" y="41.59" width="12.761" height="12.761" rx="5.07"/>
+          <rect x="78.45" y="60.97" width="13.706" height="13.706" rx="5.044"/>
+          <rect x="58.13" y="60.97" width="12.761" height="12.761" rx="5.07"/>
+          <rect x="79.4" y="79.4" width="12.761" height="12.761" rx="5.07"/>
+        </g>
+        <g style="fill: var(--pge-diag, #ff8a76)">
+          <rect x="0.95" y="21.27" width="11.815" height="11.815" rx="5.041"/>
+          <rect x="19.38" y="41.59" width="11.815" height="11.815" rx="5.041"/>
+          <rect x="38.75" y="60.97" width="11.815" height="11.815" rx="5.041"/>
+          <rect x="59.08" y="79.4" width="11.815" height="11.815" rx="5.041"/>
+        </g>
+      </symbol>
+      <!-- XR Advisor, versão branca (exportada do Figma). O manual só a permite sobre fundo escuro -->
+      <symbol id="pge-xr" viewBox="0 0 384.817 62.354">
+        <g fill="#fff">
+          <svg x="40.378" y="31.825" width="40.7049" height="30.5224" viewBox="0 0 40.7049 30.5224"><path d="M10.7692 0L10.9926 0.101549L40.7049 30.5224H16.6164L0 13.6059"/></svg>
+          <svg x="4.985" y="31.825" width="46.3941" height="30.5247" viewBox="0 0 46.3941 30.5247"><path d="M35.0788 14.1295L22.0303 30.5247H0L24.1426 0.164738C31.4793 -0.0361123 38.8521 0.288863 46.1707 0L46.3941 0.101549"/></svg>
+          <svg x="65.206" y="0" width="37.7694" height="44.1148" viewBox="0 0 37.7694 44.1148"><path d="M2.24546 44.1148L9.65885 26.5235C9.83037 26.3159 11.5816 26.44 12.0284 26.4016C15.1901 26.1263 17.8125 24.2555 18.1465 20.9358C18.9702 12.7529 9.9432 13.7097 4.46835 13.6375C3.00823 13.6194 1.45786 13.6149 0 13.6939L10.9068 0L19.8277 0.0135399C28.5207 1.79862 35.318 6.28277 37.2701 15.3707C39.3599 25.095 34.7719 34.2799 25.7043 38.2292C24.5714 38.7234 23.4272 38.9694 22.3192 39.3914C22.2064 39.4343 22.1319 39.335 22.1657 39.5652"/></svg>
+          <svg x="67.449" y="26.525" width="40.9193" height="35.8303" viewBox="0 0 40.9193 35.8303"><path d="M19.9135 13.044L40.9193 35.8235L19.3177 35.8303H17.0903L0 17.5913L7.41113 0L19.9135 13.044Z"/></svg>
+          <svg x="0" y="0.006" width="40.7049" height="30.5224" viewBox="0 0 40.7049 30.5224"><path d="M29.9357 30.5224L29.7123 30.4209L0 0H24.0885L40.7049 16.9165"/></svg>
+          <svg x="29.715" y="0" width="46.3941" height="30.5247" viewBox="0 0 46.3941 30.5247"><path d="M11.3153 16.3952L24.3638 0H46.3941L22.2515 30.36C14.9148 30.5608 7.54203 30.2358 0.223415 30.5247L0 30.4231"/></svg>
+          <svg x="125.516" y="14.029" width="259.301" height="34.296" viewBox="0 0 259.301 34.296">
+            <path d="M47.6596 0.293776H57.7295C59.0006 0.293776 63.7148 1.29336 65.1216 1.78698C78.2644 6.39004 78.3014 29.0104 64.8748 32.873C63.7641 33.1939 59.8151 34.0331 58.9266 34.0331H47.6843L46.7958 33.1445V1.1823L47.6843 0.293776H47.6596ZM50.3252 3.84788V29.5904L51.3001 30.3802C59.556 30.2445 69.7247 30.4173 70.9711 20.0511C72.6741 5.88409 61.9748 3.39127 50.3129 3.83553L50.3252 3.84788Z"/>
+            <path d="M198.758 0.429322C211.099 -1.63156 222.181 5.00773 221.428 18.3603C220.157 40.8326 183.493 39.4257 186.541 14.2632C187.244 8.51246 192.909 1.40423 198.758 0.429322ZM214.11 26.7272C226.253 13.5104 206.57 -5.74099 193.871 7.3771C180.951 20.7173 201.695 40.2526 214.11 26.7272Z"/>
+            <path d="M237.989 1.1823C238.396 -0.13815 244.468 0.195059 246.011 0.269102C252.823 0.626981 261.091 2.55209 258.906 11.425C257.45 17.3238 253.292 17.8298 248.059 18.6443L259.301 33.4284L254.686 33.305C251.403 29.7015 247.602 22.2231 244.172 19.2613C243.419 18.6073 243.172 18.4839 242.123 18.6443V33.4407H237.977V1.1823H237.989ZM241.543 15.0902H250.725C252.749 15.0902 255.673 11.6101 255.673 9.46285C255.673 7.31558 252.749 3.83552 250.725 3.83552H241.543V15.0779V15.0902Z"/>
+            <path d="M31.37 34.0329C29.8891 34.1193 28.3835 34.2551 27.5444 32.8359L15.4012 8.58656L3.82566 32.8359C2.9865 34.2551 1.48093 34.1193 5.6256e-05 34.0329L15.685 0.306008L31.37 34.0329Z"/>
+            <path d="M151.617 26.3941L154.134 25.8017C156.923 32.2929 167.154 32.9963 166.389 24.8515C165.846 19.1131 154.986 15.5467 153.616 10.376C150.679 -0.779979 164.081 -3.22343 169.634 4.42776C170.535 5.84693 167.845 7.00694 166.771 6.73545C165.118 6.31587 164.353 2.90986 160.786 3.26774C158.762 3.47753 156.763 5.56309 156.886 7.661C157.22 13.3747 170.14 16.0279 170.535 24.8638C171.078 36.933 152.863 37.3896 151.605 26.4064L151.617 26.3941Z"/>
+            <path d="M103.02 25.1477C103.735 25.086 104.019 24.3332 104.315 23.7902C107.894 17.1756 110.128 8.6112 113.756 1.86088C114.57 0.145533 116.101 0.145546 117.804 0.293634L117.52 2.66305L104.661 32.4163L102.723 33.4405L89.4079 0.293634C90.8765 0.21959 92.4437 0.0468348 93.2212 1.50303L103.032 25.1477H103.02Z"/>
+            <path d="M136.759 0.886028H133.797V33.4406H136.759V0.886028Z"/>
+          </svg>
+        </g>
+      </symbol>
+      <!-- Aspa do kit gráfico: duas células -->
+      <symbol id="pge-aspa" viewBox="0 0 64 30">
+        <rect x="0" y="0" width="30" height="30" rx="10.2" fill="currentColor"/>
+        <rect x="40" y="0" width="20" height="20" rx="6.8" fill="currentColor"/>
+      </symbol>
+      <!-- Malha uniforme usada como placeholder de retrato -->
+      <pattern id="pge-padrao-retrato" width="34" height="34" patternUnits="userSpaceOnUse">
+        <rect x="9" y="9" width="16" height="16" rx="5.44" fill="#0d1626"/>
+      </pattern>
+    </defs>
+  </svg>
+
+  <header class="pge-cabecalho">
+    <div class="pge-wrap">
+      <a class="pge-marca" href="#pge-topo" aria-label="PGE, Programa de Governança Empresarial. Voltar ao início">
+        <span class="pge-logo" aria-hidden="true">
+          <svg class="pge-simbolo" style="--pge-diag: var(--pge-acento-claro)"><use href="#pge-simbolo"/></svg>
+          <span class="pge-sigla">PGE</span>
+        </span>
+      </a>
+      <nav class="pge-nav" aria-label="Seções da página">
+        <ul>
+          <li><a href="#pge-etapas">O que o treinamento cobre</a></li>
+          <li><a href="#pge-resultados">Resultados</a></li>
+          <li><a href="#pge-conducao">Quem conduz</a></li>
+          <li><a href="#pge-perguntas">Perguntas</a></li>
+        </ul>
+      </nav>
+      <a class="pge-botao pge-botao-primario" href="#pge-interesse" data-cta="cabecalho" data-texto-checkout="Garantir minha vaga">Tenho interesse</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="pge-topo" class="pge-hero" aria-labelledby="pge-hero-titulo">
+      <!-- Malha progressiva da capa A01 (Figma 237:14 a 237:32). Reage a cursor, clique e scroll -->
+      <svg class="pge-malha-hero" viewBox="1180 -80 900 900" aria-hidden="true" data-malha="hero">
+        <rect x="1918.46" y="-80" width="161.538" height="161.538" rx="54.92" style="animation-delay:0ms"/>
+        <rect x="1720" y="-80" width="152.308" height="152.308" rx="51.78" style="animation-delay:35ms"/>
+        <rect x="1530.77" y="-80" width="143.077" height="143.077" rx="48.65" style="animation-delay:70ms"/>
+        <rect x="1350.77" y="-80" width="133.846" height="133.846" rx="45.51" style="animation-delay:105ms"/>
+        <rect x="1180" y="-80" width="124.615" height="124.615" rx="42.37" style="animation-delay:140ms"/>
+        <rect x="1927.69" y="127.69" width="152.308" height="152.308" rx="51.78" style="animation-delay:175ms"/>
+        <rect x="1729.23" y="127.69" width="143.077" height="143.077" rx="48.65" style="animation-delay:210ms"/>
+        <rect x="1540" y="127.69" width="133.846" height="133.846" rx="45.51" style="animation-delay:245ms"/>
+        <rect x="1360" y="127.69" width="124.615" height="124.615" rx="42.37" style="animation-delay:280ms"/>
+        <rect class="pge-acento" x="1189.23" y="127.69" width="115.385" height="115.385" rx="39.23" style="animation-delay:315ms"/>
+        <rect x="1936.92" y="326.15" width="143.077" height="143.077" rx="48.65" style="animation-delay:350ms"/>
+        <rect x="1738.46" y="326.15" width="133.846" height="133.846" rx="45.51" style="animation-delay:385ms"/>
+        <rect x="1549.23" y="326.15" width="124.615" height="124.615" rx="42.37" style="animation-delay:420ms"/>
+        <rect class="pge-acento" x="1369.23" y="326.15" width="115.385" height="115.385" rx="39.23" style="animation-delay:455ms"/>
+        <rect x="1946.15" y="515.38" width="133.846" height="133.846" rx="45.51" style="animation-delay:490ms"/>
+        <rect x="1747.69" y="515.38" width="124.615" height="124.615" rx="42.37" style="animation-delay:525ms"/>
+        <rect class="pge-acento" x="1558.46" y="515.38" width="115.385" height="115.385" rx="39.23" style="animation-delay:560ms"/>
+        <rect x="1955.38" y="695.38" width="124.615" height="124.615" rx="42.37" style="animation-delay:595ms"/>
+        <rect class="pge-acento" x="1756.92" y="695.38" width="115.385" height="115.385" rx="39.23" style="animation-delay:630ms"/>
+      </svg>
+      <div class="pge-wrap pge-conteudo">
+        <h1 id="pge-hero-titulo">Estruturar a empresa para o próximo estágio</h1>
+        <p class="pge-lead">Treinamento de governança para donos e executivos de pequenas e médias empresas. Você aprende a organizar sócios, gestão e números para crescer com estrutura, captar recursos ou preparar um M&amp;A.</p>
+        <div class="pge-acoes">
+          <a class="pge-botao pge-botao-primario" href="#pge-interesse" data-cta="hero" data-texto-checkout="Garantir minha vaga">Quero saber da primeira turma</a>
+          <a class="pge-link" href="#pge-etapas">Ver o que o treinamento cobre</a>
+        </div>
+        <p class="pge-status">Primeira turma com data a definir.</p>
+      </div>
+    </section>
+
+    <section class="pge-estagios pge-claro" aria-labelledby="pge-estagios-titulo">
+      <div class="pge-wrap">
+        <div class="pge-intro">
+          <h2 id="pge-estagios-titulo" class="pge-h2">O dono deixa de ser o único ponto de decisão</h2>
+          <p class="pge-texto">Quem decide muda conforme a empresa amadurece. O treinamento mostra o que precisa estar no lugar para passar de um estágio ao seguinte.</p>
+        </div>
+        <!-- Escada do kit gráfico: cada estágio empilha uma célula sobre o anterior; o scroll preenche -->
+        <ol class="pge-escada" data-escada>
+          <li>
+            <span class="pge-pilha" aria-hidden="true"><span></span></span>
+            <h3>Fundador faz tudo</h3>
+            <p>Decisão e execução na mesma pessoa.</p>
+          </li>
+          <li>
+            <span class="pge-pilha" aria-hidden="true"><span></span><span></span></span>
+            <h3>Time executa</h3>
+            <p>A decisão ainda sobe para o fundador.</p>
+          </li>
+          <li>
+            <span class="pge-pilha" aria-hidden="true"><span></span><span></span><span></span></span>
+            <h3>Gestão com dado</h3>
+            <p>Indicador na mesa toda semana.</p>
+          </li>
+          <li>
+            <span class="pge-pilha" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+            <h3>Conselho decide</h3>
+            <p>O fundador escolhe onde entra.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Faixa de malha uniforme: hover deixa rastro, clique pinta uma célula, scroll passa uma diagonal -->
+    <div class="pge-faixa" aria-hidden="true">
+      <div class="pge-wrap"><div class="pge-faixa-grade" data-malha="faixa"></div></div>
+    </div>
+
+    <section class="pge-citacao" aria-label="Citação de Rodolfo Oliveira">
+      <!-- Foto provisória (Unsplash). Trocar pela foto oficial na biblioteca de mídia -->
+      <img class="pge-foto-fundo" src="https://images.unsplash.com/photo-1717386255773-1e3037c81788?w=1920&amp;q=70&amp;auto=format&amp;fit=crop" alt="" loading="lazy" decoding="async">
+      <figure class="pge-wrap">
+        <svg class="pge-aspa" width="64" height="30" aria-hidden="true"><use href="#pge-aspa"/></svg>
+        <blockquote><p>Nós somos uma empresa de bastidores. O nosso principal objetivo está nos bastidores, trazendo clareza, pra aí sim, com essa clareza, você tomar decisão do que é melhor pro seu negócio.</p></blockquote>
+        <figcaption><strong>Rodolfo Oliveira</strong><span>Fundador e presidente do conselho da XR Advisor</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- VALIDAR: conteúdo de cada etapa, formato e carga horária com quem desenhou o treinamento -->
+    <section id="pge-etapas" class="pge-etapas" aria-labelledby="pge-etapas-titulo">
+      <div class="pge-wrap">
+        <div class="pge-etapas-cabeca">
+          <h2 id="pge-etapas-titulo" class="pge-display">Quatro etapas</h2>
+          <p class="pge-texto">Do diagnóstico à preparação para captar ou vender. Cada etapa termina com algo que você aplica na sua empresa.</p>
+        </div>
+        <ol>
+          <li class="pge-etapa">
+            <span class="pge-marcador" aria-hidden="true">1</span>
+            <h3><span class="pge-sr">Etapa 1: </span>Diagnóstico</h3>
+            <p class="pge-aprende">Como medir a maturidade da empresa em pessoas, processos, tecnologia e governança, e quanto da operação depende do fundador.</p>
+            <p class="pge-leva"><small>O que você leva para a empresa</small>Um mapa de maturidade e a lista de prioridades.</p>
+          </li>
+          <li class="pge-etapa">
+            <span class="pge-marcador" aria-hidden="true">2</span>
+            <h3><span class="pge-sr">Etapa 2: </span>Estrutura</h3>
+            <p class="pge-aprende">Organograma, papel de cada sócio, acordo de sócios e como montar um conselho consultivo.</p>
+            <p class="pge-leva"><small>O que você leva para a empresa</small>O desenho do acordo de sócios e do conselho.</p>
+          </li>
+          <li class="pge-etapa">
+            <span class="pge-marcador" aria-hidden="true">3</span>
+            <h3><span class="pge-sr">Etapa 3: </span>Gestão</h3>
+            <p class="pge-aprende">Metas, rotina de indicadores, DRE gerencial e um comitê executivo que decide sem esperar o fundador.</p>
+            <p class="pge-leva"><small>O que você leva para a empresa</small>Uma rotina de gestão com indicadores semanais.</p>
+          </li>
+          <li class="pge-etapa">
+            <span class="pge-marcador" aria-hidden="true">4</span>
+            <h3><span class="pge-sr">Etapa 4: </span>Valor</h3>
+            <p class="pge-aprende">Valuation, estrutura de capital, como captar recursos e o que acontece num processo de M&amp;A.</p>
+            <p class="pge-leva"><small>O que você leva para a empresa</small>A lista de números e documentos que um investidor pede numa diligência.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pge-capital pge-escuro" aria-labelledby="pge-capital-titulo">
+      <div class="pge-wrap">
+        <div>
+          <h2 id="pge-capital-titulo" class="pge-h2">Preparar a empresa para atrair capital</h2>
+          <p class="pge-texto">Smart money é o capital que chega com conhecimento, conexões e apoio estratégico. Para conversar com esse tipo de investidor, a empresa precisa estar bem nos pontos que a XR Advisor avalia antes de qualquer proposta.</p>
+        </div>
+        <div>
+          <!-- Fonte: post @xradvisor, 30/07/2026 -->
+          <h3>O que a XR olha antes de propor um investimento</h3>
+          <ul class="pge-pontos" data-pontos>
+            <li>Time de gestão</li>
+            <li>Consistência de receita</li>
+            <li>Qualidade do EBITDA</li>
+            <li>Posição de mercado</li>
+            <li>Organograma</li>
+            <li>Governança</li>
+            <li>Estrutura de capital</li>
+            <li>Dependência do fundador</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pge-resultados" class="pge-resultados pge-claro" aria-labelledby="pge-resultados-titulo">
+      <div class="pge-wrap">
+        <h2 id="pge-resultados-titulo" class="pge-h2">Empresas em que a XR Advisor atua</h2>
+        <div class="pge-cases">
+          <article class="pge-destaque">
+            <h3>Grupo Acelerador</h3>
+            <p class="pge-setor">Educação empresarial</p>
+            <figure class="pge-grafico">
+              <ol aria-label="Valuation do Grupo Acelerador por ano">
+                <li><span class="pge-valor">R$ 150 mi</span><span class="pge-barra" style="--h:.15" aria-hidden="true"></span><span class="pge-ano">2022</span></li>
+                <li><span class="pge-valor">R$ 450 mi</span><span class="pge-barra" style="--h:.45" aria-hidden="true"></span><span class="pge-ano">2023</span></li>
+                <li><span class="pge-valor">R$ 729 mi</span><span class="pge-barra" style="--h:.729" aria-hidden="true"></span><span class="pge-ano">2024</span></li>
+                <li><span class="pge-valor">R$ 1 bi</span><span class="pge-barra" style="--h:1" aria-hidden="true"></span><span class="pge-ano">2025</span></li>
+              </ol>
+              <figcaption>Valuation por ano</figcaption>
+            </figure>
+            <p>A XR conduziu a rodada de dezembro de 2024, comprada por investidores do próprio programa Giants, a 9 vezes o EBITDA projetado.</p>
+          </article>
+          <ul class="pge-outros">
+            <li>
+              <h3>BRC Ingredientes</h3>
+              <p class="pge-setor">Ingredientes para carnes, Rio Claro (SP)</p>
+              <!-- Faturamento da BRC fica fora até a validação (o site traz R$ 80 mi e R$ 130 mi) -->
+              <p class="pge-numero">R$ 25 mi na compra da G2C Biotecnologia</p>
+              <p class="pge-detalhe">Governança, vesting e novo modelo societário antes da aquisição, conduzida pela XR.</p>
+            </li>
+            <li>
+              <h3>IPM Educação</h3>
+              <p class="pge-setor">Edtech médica, Goiânia</p>
+              <p class="pge-numero">R$ 44,5 mi de receita líquida em 2024</p>
+              <p class="pge-detalhe">A XR é sócia da holding e fez valuation, redesenho societário e planejamento. Em 2024 a receita cresceu 1.631%.</p>
+            </li>
+            <li>
+              <h3>LOV, Liga de Óticas Visionárias</h3>
+              <p class="pge-setor">Associação de óticas independentes</p>
+              <p class="pge-numero">140 lojas em dois meses</p>
+              <p class="pge-detalhe">Idealizada com a Tri-Jóia e o Grupo HiperSaúde. Soma 10 estados e mais de R$ 200 mi de faturamento.</p>
+            </li>
+          </ul>
+        </div>
+        <p class="pge-fonte">Cases publicados pela XR Advisor em xradvisor.com.br. Não são resultados de turmas do PGE, que ainda não começou.</p>
+
+        <div class="pge-depoimentos">
+          <figure class="pge-depoimento-principal">
+            <svg class="pge-aspa" width="64" height="30" aria-hidden="true"><use href="#pge-aspa"/></svg>
+            <blockquote><p>Antes era uma empresa antes da XR, e agora é outra completamente diferente, com governança. Aprendi muito sobre isso, e me deixou muito mais livre com o tempo.</p></blockquote>
+            <figcaption><strong>Pedro Miranda</strong>, IPM Educação. <a href="https://www.instagram.com/reel/DejvihoOQ9T/" target="_blank" rel="noopener noreferrer">Assistir ao vídeo no Instagram</a></figcaption>
+          </figure>
+          <figure class="pge-depoimento">
+            <blockquote><p>Vocês estão dando uma visão e uma organização pra dentro da Callmed que tá surpreendendo todo mundo.</p></blockquote>
+            <figcaption><strong>Juliano Callegaro</strong>, fundador da Callmed. <a href="https://www.instagram.com/reel/Ddruf-bR1X8/" target="_blank" rel="noopener noreferrer">Assistir ao vídeo</a></figcaption>
+          </figure>
+          <figure class="pge-depoimento">
+            <blockquote><p>O Lucas traz a XR, que em termos de governança faz uma coisa espetacular. E hoje nós tivemos já duas oportunidades de M&amp;A.</p></blockquote>
+            <figcaption><strong>Fabio Eduardo Costa</strong>, BRC Ingredientes. <a href="https://www.instagram.com/reel/DefFJ7iJCKR/" target="_blank" rel="noopener noreferrer">Assistir ao vídeo</a></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="pge-conducao" class="pge-conducao pge-escuro" aria-labelledby="pge-conducao-titulo">
+      <div class="pge-wrap">
+        <div class="pge-conducao-cabeca">
+          <div>
+            <span class="pge-assinatura" role="img" aria-label="PGE, por XR Advisor">
+              <svg class="pge-simbolo" style="--pge-diag: var(--pge-acento-claro)" aria-hidden="true"><use href="#pge-simbolo"/></svg>
+              <span class="pge-sigla" aria-hidden="true">PGE</span>
+              <span class="pge-por" aria-hidden="true">POR</span>
+              <svg class="pge-xr" viewBox="0 0 384.817 62.354" aria-hidden="true"><use href="#pge-xr"/></svg>
+            </span>
+            <h2 id="pge-conducao-titulo" class="pge-h2">Quem conduz o treinamento</h2>
+          </div>
+          <p class="pge-texto">A XR Advisor é um fundo de participações de Alphaville (SP), fundado em 2015. Compra fatias minoritárias de empresas do middle market e, antes de investir, organiza governança, finanças e estrutura societária. O PGE ensina esse método para que o próprio empresário o aplique.</p>
+        </div>
+        <ul class="pge-pessoas">
+          <li>
+            <figure class="pge-retrato">
+              <!-- FOTO: substitua o svg por <img src="URL da foto" alt="Rodolfo Oliveira"> -->
+              <svg class="pge-retrato-vazio" aria-hidden="true"><rect width="100%" height="100%" fill="url(#pge-padrao-retrato)"/></svg>
+            </figure>
+            <h3>Rodolfo Oliveira</h3>
+            <p class="pge-papel">Fundador e presidente do conselho da XR Advisor</p>
+            <p class="pge-bio">Começou aos 14 anos como office boy no Tribunal de Justiça de Minas Gerais. Fundou a XR em 2015 reestruturando hotéis e negócios familiares.</p>
+          </li>
+          <li>
+            <figure class="pge-retrato">
+              <!-- FOTO: substitua o svg por <img src="URL da foto" alt="Lucas Costa"> -->
+              <svg class="pge-retrato-vazio" aria-hidden="true"><rect width="100%" height="100%" fill="url(#pge-padrao-retrato)"/></svg>
+            </figure>
+            <h3>Lucas Costa</h3>
+            <p class="pge-papel">CEO da XR Advisor</p>
+            <p class="pge-bio">Engenheiro de alimentos pela USP. Contratou a XR como cliente para reorganizar a BRC Ingredientes, conduziu a compra da G2C e depois virou sócio.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="pge-perfil" aria-labelledby="pge-perfil-titulo">
+      <div class="pge-wrap">
+        <h2 id="pge-perfil-titulo" class="pge-h2">Para quem é o PGE</h2>
+        <div>
+          <h3>Faz sentido para</h3>
+          <ul>
+            <li>Donos de pequenas e médias empresas que querem profissionalizar a gestão.</li>
+            <li>Executivos de alta liderança que participam das decisões estratégicas do negócio.</li>
+            <li>Empresas com sócios na operação e regras de decisão que nunca foram escritas.</li>
+            <li>Quem pensa em captar recursos, vender uma participação, comprar um concorrente ou preparar a sucessão.</li>
+          </ul>
+        </div>
+        <div class="pge-nao">
+          <h3>Ainda não é o momento para</h3>
+          <ul>
+            <li>Quem procura uma fórmula para dobrar o lucro em poucos meses.</li>
+            <li>Quem não está disposto a abrir os números da empresa para discutir com outras pessoas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="pge-faixa" aria-hidden="true">
+      <div class="pge-wrap"><div class="pge-faixa-grade" data-malha="faixa"></div></div>
+    </div>
+
+    <section id="pge-interesse" class="pge-interesse pge-escuro" aria-labelledby="pge-interesse-titulo">
+      <div class="pge-wrap">
+        <div>
+          <h2 id="pge-interesse-titulo" class="pge-display">Primeira turma</h2>
+          <p class="pge-texto">A data ainda não foi definida. Deixe seu contato e o time da XR Advisor avisa quando as inscrições abrirem.</p>
+        </div>
+        <div class="pge-painel" data-painel>
+          <form class="pge-form" data-form>
+            <div class="pge-campo">
+              <label for="pge-nome">Nome completo</label>
+              <input id="pge-nome" name="nome" type="text" autocomplete="name" required maxlength="120">
+            </div>
+            <div class="pge-duplo">
+              <div class="pge-campo">
+                <label for="pge-email">E-mail</label>
+                <input id="pge-email" name="email" type="email" autocomplete="email" required maxlength="160">
+              </div>
+              <div class="pge-campo">
+                <label for="pge-telefone">Telefone com DDD</label>
+                <input id="pge-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[\d\s\(\)\+\-]{10,20}" title="Use só números, com DDD." maxlength="20">
+              </div>
+            </div>
+            <div class="pge-duplo">
+              <div class="pge-campo">
+                <label for="pge-empresa">Empresa</label>
+                <input id="pge-empresa" name="empresa" type="text" autocomplete="organization" required maxlength="160">
+              </div>
+              <div class="pge-campo">
+                <label for="pge-cargo">Cargo</label>
+                <select id="pge-cargo" name="cargo" required>
+                  <option value="" selected disabled>Selecione</option>
+                  <option>Fundador ou sócio</option>
+                  <option>CEO ou diretor</option>
+                  <option>Executivo de alta liderança</option>
+                  <option>Outro</option>
+                </select>
+              </div>
+            </div>
+            <label class="pge-consentimento">
+              <input type="checkbox" name="consentimento" value="sim" required>
+              <span>Autorizo a XR Advisor a usar estes dados para me avisar sobre o PGE.<span data-politica hidden> <a href="#" target="_blank" rel="noopener noreferrer">Política de privacidade</a>.</span></span>
+            </label>
+            <p class="pge-erro" role="alert" data-erro hidden></p>
+            <button class="pge-botao pge-botao-primario" type="submit" data-enviar>Quero ser avisado</button>
+          </form>
+          <div class="pge-sucesso" role="status" data-sucesso hidden>
+            <h3>Contato recebido</h3>
+            <p>O time da XR Advisor vai avisar você assim que a data da primeira turma for definida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pge-perguntas" class="pge-perguntas pge-claro" aria-labelledby="pge-perguntas-titulo">
+      <div class="pge-wrap">
+        <h2 id="pge-perguntas-titulo" class="pge-h2">Perguntas</h2>
+        <div class="pge-faq">
+          <details>
+            <summary>Quanto custa?<span class="pge-sinal" aria-hidden="true"></span></summary>
+            <p>O investimento será informado junto com a abertura das inscrições.</p>
+          </details>
+          <!-- VALIDAR: formato e carga horária -->
+          <details>
+            <summary>Qual é o formato e a duração?<span class="pge-sinal" aria-hidden="true"></span></summary>
+            <p>O formato e a carga horária serão divulgados com a data da turma.</p>
+          </details>
+          <details>
+            <summary>Há limite de vagas?<span class="pge-sinal" aria-hidden="true"></span></summary>
+            <p>Não nesta primeira turma.</p>
+          </details>
+          <details>
+            <summary>O PGE garante investimento da XR Advisor?<span class="pge-sinal" aria-hidden="true"></span></summary>
+            <p>Não. O treinamento ensina a captar recursos e a estruturar a empresa para atrair investidores. O acesso a smart money pode acontecer à medida que a empresa amadurece, com análise própria de cada investidor.</p>
+          </details>
+          <details>
+            <summary>Preciso ter conselho ou acordo de sócios antes de entrar?<span class="pge-sinal" aria-hidden="true"></span></summary>
+            <p>Não. Os dois são assunto da etapa de estrutura.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pge-rodape">
+    <div class="pge-wrap pge-rodape-grade">
+      <span class="pge-assinatura" role="img" aria-label="PGE, por XR Advisor">
+        <svg class="pge-simbolo" style="--pge-diag: var(--pge-acento-claro)" aria-hidden="true"><use href="#pge-simbolo"/></svg>
+        <span class="pge-sigla" aria-hidden="true">PGE</span>
+        <span class="pge-por" aria-hidden="true">POR</span>
+        <svg class="pge-xr" viewBox="0 0 384.817 62.354" aria-hidden="true"><use href="#pge-xr"/></svg>
+      </span>
+      <address class="pge-bloco">
+        <span>Av. Copacabana, 268</span>
+        <span>Alphaville, Barueri (SP)</span>
+        <span>06472-001</span>
+      </address>
+      <!-- VALIDAR: e-mail oficial do PGE (o site da XR mostra dois) -->
+      <ul class="pge-bloco">
+        <li><a href="mailto:contato@xradvisor.com.br">contato@xradvisor.com.br</a></li>
+        <li><a href="https://www.instagram.com/xradvisor/" target="_blank" rel="noopener noreferrer">Instagram da XR Advisor</a></li>
+        <li><a href="https://www.linkedin.com/company/xradvisor/" target="_blank" rel="noopener noreferrer">LinkedIn da XR Advisor</a></li>
+      </ul>
+    </div>
+    <div class="pge-wrap pge-rodape-base">
+      <p>© 2026 XR Advisor. Programa de Governança Empresarial.</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== Configuração ===== */
+  var CONFIG = {
+    // URL do webhook do CRM que recebe o formulário de interesse
+    webhookUrl: "",
+    // true se o CRM não devolver cabeçalhos CORS: o envio vai sem ler a resposta
+    semCors: false,
+    // Quando o checkout existir, preencha: todos os botões de CTA passam a levar para ele
+    checkoutUrl: "",
+    // Link da política de privacidade, exibido no consentimento quando preenchido
+    politicaUrl: ""
+  };
+
+  var raiz = document.getElementById("pge");
+  if (!raiz || raiz.getAttribute("data-pronto")) return;
+  raiz.setAttribute("data-pronto", "1");
+
+  var reduzMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var temHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ===== GA4: só dispara eventos se o gtag ou o GTM já estiverem na página ===== */
+  function evento(nome, parametros) {
+    parametros = parametros || {};
+    if (typeof window.gtag === "function") window.gtag("event", nome, parametros);
+    else if (Array.isArray(window.dataLayer)) window.dataLayer.push(Object.assign({ event: nome }, parametros));
+  }
+
+  /* ===== CTAs e checkout ===== */
+  var ctas = raiz.querySelectorAll("[data-cta]");
+  ctas.forEach(function (a) {
+    if (CONFIG.checkoutUrl) {
+      a.setAttribute("href", CONFIG.checkoutUrl);
+      a.textContent = a.getAttribute("data-texto-checkout") || a.textContent;
+    }
+    a.addEventListener("click", function () {
+      evento("pge_clique_cta", { local: a.getAttribute("data-cta"), destino: CONFIG.checkoutUrl ? "checkout" : "interesse" });
+    });
+  });
+
+  /* ===== Âncoras internas com rolagem suave (o tema não controla o html) ===== */
+  raiz.addEventListener("click", function (e) {
+    var link = e.target.closest && e.target.closest('a[href^="#pge-"]');
+    if (!link) return;
+    var alvo = document.getElementById(link.getAttribute("href").slice(1));
+    if (!alvo) return;
+    e.preventDefault();
+    alvo.scrollIntoView({ behavior: reduzMovimento ? "auto" : "smooth", block: "start" });
+    if (history.replaceState) history.replaceState(null, "", "#" + alvo.id);
+  });
+
+  /* ===== Formulário de interesse ===== */
+  var form = raiz.querySelector("[data-form]");
+  var erro = raiz.querySelector("[data-erro]");
+  var sucesso = raiz.querySelector("[data-sucesso]");
+  var botaoEnviar = raiz.querySelector("[data-enviar]");
+  var politica = raiz.querySelector("[data-politica]");
+
+  if (CONFIG.politicaUrl && politica) {
+    politica.querySelector("a").setAttribute("href", CONFIG.politicaUrl);
+    politica.hidden = false;
+  }
+
+  function mostraErro(texto) {
+    erro.textContent = texto;
+    erro.hidden = false;
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      var destino = CONFIG.webhookUrl || window.PGE_WEBHOOK_TESTE;
+      if (!destino) {
+        console.warn("[PGE] CONFIG.webhookUrl está vazio: o formulário não tem para onde enviar.");
+        mostraErro("O envio ainda não está configurado. Escreva para contato@xradvisor.com.br e avisamos você sobre a primeira turma.");
+        return;
+      }
+
+      var dados = new URLSearchParams(new FormData(form));
+      dados.set("origem", "lp-pge");
+      dados.set("pagina", location.href.split("#")[0]);
+      new URLSearchParams(location.search).forEach(function (valor, chave) {
+        if (chave.indexOf("utm_") === 0) dados.set(chave, valor);
+      });
+
+      erro.hidden = true;
+      botaoEnviar.disabled = true;
+      botaoEnviar.textContent = "Enviando...";
+
+      // Corpo urlencoded evita preflight de CORS na maioria dos webhooks
+      fetch(destino, { method: "POST", body: dados, mode: CONFIG.semCors ? "no-cors" : "cors" })
+        .then(function (resposta) {
+          if (!CONFIG.semCors && !resposta.ok) throw new Error("status " + resposta.status);
+          form.hidden = true;
+          sucesso.hidden = false;
+          evento("generate_lead", { origem: "lp-pge" });
+        })
+        .catch(function (falha) {
+          console.error("[PGE] falha no envio:", falha);
+          mostraErro("Não conseguimos registrar seu contato agora. Seus dados continuam preenchidos. Tente de novo ou escreva para contato@xradvisor.com.br.");
+        })
+        .then(function () {
+          botaoEnviar.disabled = false;
+          botaoEnviar.textContent = "Quero ser avisado";
+        });
+    });
+  }
+
+  /* ===== Padronagens interativas =====
+     Com prefers-reduced-motion as faixas são montadas estáticas e nada reage */
+  var anima = !reduzMovimento;
+  if (anima) raiz.classList.add("pge-anima");
+
+  // Cores em RGB para interpolar
+  var COR = {
+    base600: [42, 56, 82],
+    base400: [107, 122, 147],
+    acento: [228, 96, 74],
+    acentoClaro: [255, 138, 118]
+  };
+
+  function mistura(a, b, t) {
+    return "rgb(" + Math.round(a[0] + (b[0] - a[0]) * t) + "," + Math.round(a[1] + (b[1] - a[1]) * t) + "," + Math.round(a[2] + (b[2] - a[2]) * t) + ")";
+  }
+
+  function limita(v, min, max) {
+    return v < min ? min : v > max ? max : v;
+  }
+
+  function interativo(alvo) {
+    return !!(alvo.closest && alvo.closest("a, button, input, select, textarea, label, summary"));
+  }
+
+  // Progresso de um elemento pela tela: 0 quando o topo entra por baixo, 1 quando chega a "fim" da altura da tela
+  function progresso(el, inicio, fim) {
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight;
+    return limita((vh * inicio - r.top) / (vh * (inicio - fim)), 0, 1);
+  }
+
+  // Um único laço de animação para a página inteira. Cada motor devolve true se ainda precisa de quadros
+  var motores = [];
+  var rodando = false;
+  var ultimo = 0;
+
+  function agenda() {
+    if (rodando) return;
+    rodando = true;
+    requestAnimationFrame(laco);
+  }
+
+  function laco(agora) {
+    var dt = ultimo ? Math.min(agora - ultimo, 64) : 16;
+    ultimo = agora;
+    var continua = false;
+    for (var i = 0; i < motores.length; i++) {
+      var m = motores[i];
+      if (m.visivel && m.passo(agora, dt)) continua = true;
+    }
+    if (continua) requestAnimationFrame(laco);
+    else {
+      rodando = false;
+      ultimo = 0;
+    }
+  }
+
+  var observador = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (en) {
+      var m = en.target.__pgeMotor;
+      if (!m) return;
+      m.visivel = en.isIntersecting;
+      if (m.visivel) {
+        m.sujo = true;
+        agenda();
+      }
+    });
+  }, { rootMargin: "80px 0px" });
+
+  function registra(el, motor) {
+    if (!anima) return;
+    motor.visivel = false;
+    motor.sujo = true;
+    el.__pgeMotor = motor;
+    motores.push(motor);
+    observador.observe(el);
+  }
+
+  window.addEventListener("scroll", function () {
+    for (var i = 0; i < motores.length; i++) if (motores[i].visivel) motores[i].sujo = true;
+    agenda();
+  }, { passive: true });
+
+  /* --- Malha do hero: cursor aproxima, clique solta uma onda, scroll desloca devagar.
+         Dono das células: onda > cursor. O scroll mexe só no contêiner, sem disputar as células. --- */
+  var svgHero = raiz.querySelector('[data-malha="hero"]');
+  if (svgHero) {
+    var hero = svgHero.closest(".pge-hero");
+    var celulasHero = Array.prototype.map.call(svgHero.querySelectorAll("rect"), function (r) {
+      var x = parseFloat(r.getAttribute("x")), y = parseFloat(r.getAttribute("y")), l = parseFloat(r.getAttribute("width"));
+      return { el: r, cx: x + l / 2, cy: y + l / 2, acento: r.classList.contains("pge-acento"), t: 0, aplicado: -1 };
+    });
+    var ponteiro = null;
+    var onda = null;
+    var desloc = -1;
+
+    // Depois da entrada, a animação CSS sai do caminho para o JS assumir a cor
+    setTimeout(function () {
+      celulasHero.forEach(function (c) { c.el.style.animation = "none"; });
+    }, 1000);
+
+    hero.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse" || !temHover) return;
+      ponteiro = { x: e.clientX, y: e.clientY };
+      agenda();
+    });
+    hero.addEventListener("pointerleave", function () {
+      ponteiro = null;
+      agenda();
+    });
+    hero.addEventListener("click", function (e) {
+      if (interativo(e.target)) return;
+      onda = { x: e.clientX, y: e.clientY, t0: performance.now() };
+      agenda();
+    });
+
+    registra(hero, {
+      passo: function (agora) {
+        var caixa = svgHero.getBoundingClientRect();
+        var k = caixa.width / 900;
+        var ativo = false;
+
+        // Scroll: desloca a malha até 90px enquanto o hero sai da tela
+        var novoDesloc = Math.round(limita(window.scrollY * 0.15, 0, 90));
+        if (novoDesloc !== desloc) {
+          desloc = novoDesloc;
+          svgHero.style.translate = "0 " + desloc + "px";
+        }
+
+        var maiorDist = 0;
+        for (var i = 0; i < celulasHero.length; i++) {
+          var c = celulasHero[i];
+          var px = caixa.left + (c.cx - 1180) * k;
+          var py = caixa.top + (c.cy + 80) * k;
+          var alvo = 0;
+          if (onda) {
+            var d = Math.hypot(px - onda.x, py - onda.y);
+            if (d > maiorDist) maiorDist = d;
+            var tempo = agora - onda.t0 - d / 1.1;
+            alvo = tempo > 0 && tempo < 320 ? Math.sin((Math.PI * tempo) / 320) : 0;
+            // A onda assume a célula; o brilho do cursor se apaga suave em vez de sumir de uma vez
+            c.t = Math.max(alvo, c.t * 0.85);
+            if (c.t < 0.004) c.t = 0;
+          } else {
+            if (ponteiro) {
+              var dp = Math.hypot(px - ponteiro.x, py - ponteiro.y);
+              var f = limita(1 - dp / 260, 0, 1);
+              alvo = f * f;
+            }
+            c.t += (alvo - c.t) * 0.22;
+            if (Math.abs(alvo - c.t) < 0.004) c.t = alvo;
+          }
+          if (c.t !== alvo || (ponteiro && alvo > 0)) ativo = true;
+          if (Math.abs(c.t - c.aplicado) > 0.003) {
+            c.aplicado = c.t;
+            c.el.style.scale = String(1 + 0.12 * c.t);
+            c.el.style.fill = c.acento ? mistura(COR.acento, COR.acentoClaro, c.t) : mistura(COR.base600, COR.base400, c.t);
+          }
+        }
+        if (onda) {
+          if (agora - onda.t0 > maiorDist / 1.1 + 340) onda = null;
+          ativo = true;
+        }
+        return ativo;
+      }
+    });
+  }
+
+  /* --- Faixas de malha uniforme: rastro no hover, clique pinta e solta uma onda curta,
+         scroll passa uma diagonal clara. Dono de cada célula: onda > rastro > scroll. --- */
+  raiz.querySelectorAll('[data-malha="faixa"]').forEach(function (grade) {
+    var cols = 0, linhas = 4, celulas = [], rastro, ondaV, aplicado;
+    var ondaF = null;
+    var ultimoPonto = null;
+
+    function monta() {
+      var c = parseFloat(getComputedStyle(grade).getPropertyValue("--c")) || 16;
+      var passoMin = c * 2.1;
+      var novas = Math.max(6, Math.floor((grade.clientWidth + c) / passoMin));
+      if (novas === cols) return;
+      var pintadas = {};
+      celulas.forEach(function (el, i) { if (el.classList.contains("pge-pintada")) pintadas[i] = true; });
+      cols = novas;
+      grade.style.gridTemplateColumns = "repeat(" + cols + ", var(--c))";
+      grade.textContent = "";
+      celulas = [];
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < cols * linhas; i++) {
+        var s = document.createElement("span");
+        if (pintadas[i]) s.className = "pge-pintada";
+        frag.appendChild(s);
+        celulas.push(s);
+      }
+      grade.appendChild(frag);
+      rastro = new Float32Array(celulas.length);
+      ondaV = new Float32Array(celulas.length);
+      aplicado = new Float32Array(celulas.length).fill(-1);
+    }
+
+    function indicePor(x, y) {
+      var r = grade.getBoundingClientRect();
+      if (x < r.left || x > r.right || y < r.top || y > r.bottom) return -1;
+      var col = limita(Math.floor(((x - r.left) / r.width) * cols), 0, cols - 1);
+      var lin = limita(Math.floor(((y - r.top) / r.height) * linhas), 0, linhas - 1);
+      return lin * cols + col;
+    }
+
+    function acende(i, v) {
+      if (i >= 0 && v > rastro[i]) rastro[i] = v;
+    }
+
+    monta();
+    var redimensiona;
+    window.addEventListener("resize", function () {
+      clearTimeout(redimensiona);
+      redimensiona = setTimeout(function () { monta(); motor.sujo = true; agenda(); }, 150);
+    });
+
+    grade.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse" || !temHover) return;
+      var i = indicePor(e.clientX, e.clientY);
+      if (i < 0 || i === ultimoPonto) return;
+      ultimoPonto = i;
+      acende(i, 1);
+      var col = i % cols;
+      if (col > 0) acende(i - 1, 0.45);
+      if (col < cols - 1) acende(i + 1, 0.45);
+      acende(i - cols, 0.45);
+      if (i + cols < celulas.length) acende(i + cols, 0.45);
+      agenda();
+    });
+    grade.addEventListener("pointerleave", function () { ultimoPonto = null; });
+    grade.addEventListener("click", function (e) {
+      var i = indicePor(e.clientX, e.clientY);
+      if (i < 0) return;
+      celulas[i].classList.toggle("pge-pintada");
+      ondaF = { col: i % cols, lin: Math.floor(i / cols), t0: performance.now() };
+      agenda();
+    });
+
+    var motor = {
+      passo: function (agora, dt) {
+        var ativo = false;
+        var diag = progresso(grade, 1, 0) * (cols + linhas + 4) - 2;
+        if (ondaF && agora - ondaF.t0 > 5 * 70 + 280) ondaF = null;
+        for (var i = 0; i < celulas.length; i++) {
+          var col = i % cols, lin = Math.floor(i / cols);
+          if (rastro[i] > 0) {
+            rastro[i] = Math.max(0, rastro[i] - dt / 650);
+            ativo = true;
+          }
+          var o = 0;
+          if (ondaF) {
+            var anel = Math.max(Math.abs(col - ondaF.col), Math.abs(lin - ondaF.lin));
+            if (anel <= 4) {
+              var tempo = agora - ondaF.t0 - anel * 70;
+              o = tempo > 0 && tempo < 280 ? Math.sin((Math.PI * tempo) / 280) * (1 - anel * 0.18) : 0;
+            }
+          }
+          var dd = col + lin - diag;
+          var sc = 0.32 * Math.exp(-(dd * dd) / 3);
+          var v = o > 0 ? o : rastro[i] > 0 ? rastro[i] : sc;
+          if (Math.abs(v - aplicado[i]) > 0.01) {
+            aplicado[i] = v;
+            var el = celulas[i];
+            el.style.scale = String(1 + 0.15 * v);
+            el.style.backgroundColor = el.classList.contains("pge-pintada") ? mistura(COR.acento, COR.acentoClaro, v) : mistura(COR.base600, COR.base400, v);
+          }
+        }
+        if (ondaF) ativo = true;
+        return ativo;
+      }
+    };
+    // Pintar/despintar precisa recalcular a cor da célula mesmo sem mudança de intensidade
+    grade.addEventListener("click", function () { aplicado.fill(-1); });
+    registra(grade, motor);
+  });
+
+  /* --- Escada dos estágios: as células se empilham conforme o scroll avança pela seção --- */
+  var escada = raiz.querySelector("[data-escada]");
+  if (escada) {
+    var blocos = escada.querySelectorAll(".pge-pilha span");
+    var cheiasAntes = -1;
+    registra(escada, {
+      passo: function () {
+        if (!this.sujo) return false;
+        this.sujo = false;
+        var cheias = Math.round(progresso(escada, 0.95, 0.45) * blocos.length);
+        if (cheias !== cheiasAntes) {
+          cheiasAntes = cheias;
+          for (var i = 0; i < blocos.length; i++) blocos[i].classList.toggle("pge-cheia", i < cheias);
+        }
+        return false;
+      }
+    });
+  }
+
+  /* --- Oito pontos: acendem em sequência com o scroll; ao fim, todos com o mesmo peso --- */
+  var pontos = raiz.querySelector("[data-pontos]");
+  if (pontos) {
+    var itens = pontos.querySelectorAll("li");
+    var acesosAntes = -1;
+    registra(pontos, {
+      passo: function () {
+        if (!this.sujo) return false;
+        this.sujo = false;
+        var acesos = Math.round(progresso(pontos, 0.9, 0.4) * itens.length);
+        if (acesos !== acesosAntes) {
+          acesosAntes = acesos;
+          for (var i = 0; i < itens.length; i++) itens[i].classList.toggle("pge-aceso", i < acesos);
+        }
+        return false;
+      }
+    });
+  }
+})();
+</script>

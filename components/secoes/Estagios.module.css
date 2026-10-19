@@ -1,0 +1,108 @@
+.secao {
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 24px 64px;
+  align-items: end;
+}
+
+.titulo {
+  max-width: 16ch;
+  font-size: var(--t-1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.texto {
+  color: var(--base-600);
+  font-size: 1.0625rem;
+}
+
+.escada {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(48px, 7vw, 88px);
+  border-top: var(--fio);
+}
+
+.escada li {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px 8px;
+  border-left: var(--fio);
+}
+
+.escada li:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.celulas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 152px;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+}
+
+.celulas span {
+  width: 32px;
+  height: 32px;
+  border-radius: calc(32px * var(--r-celula));
+  background: var(--neutro-300);
+}
+
+.celulas .topo {
+  background: var(--base-600);
+}
+
+.destino .celulas .topo {
+  background: var(--acento);
+}
+
+.nome {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin-top: 6px;
+  color: var(--base-600);
+}
+
+@media (max-width: 860px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+  .escada {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 8px;
+  }
+  .escada li:nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .escada li {
+    padding: 24px 12px 8px;
+  }
+  .celulas {
+    height: 116px;
+    gap: 6px;
+  }
+  .celulas span {
+    width: 22px;
+    height: 22px;
+    border-radius: calc(22px * var(--r-celula));
+  }
+}

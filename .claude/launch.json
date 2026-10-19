@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lp-pge",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "pge-html",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/preview.mjs"],
+      "port": 3001
+    }
+  ]
+}

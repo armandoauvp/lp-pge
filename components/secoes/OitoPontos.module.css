@@ -1,0 +1,81 @@
+.secao {
+  padding-block: clamp(80px, 10vw, 128px);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px 80px;
+  align-items: start;
+}
+
+.titulo {
+  font-size: var(--t-1);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.texto {
+  margin-top: 20px;
+  max-width: 40ch;
+  color: var(--neutro-300);
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: var(--fio-escuro);
+}
+
+.lista li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  padding: 16px 16px 16px 0;
+  border-bottom: var(--fio-escuro);
+  font-size: var(--t-destaque);
+  font-weight: 500;
+}
+
+.lista li:nth-child(odd) {
+  border-right: var(--fio-escuro);
+}
+
+.lista li:nth-child(even) {
+  padding-left: 24px;
+}
+
+/* Célula da malha uniforme como marcador de item */
+.lista li::before {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: calc(14px * var(--r-celula));
+  background: var(--base-600);
+}
+
+.lista li:last-child::before {
+  background: var(--acento-claro);
+}
+
+@media (max-width: 860px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .lista {
+    grid-template-columns: 1fr;
+  }
+  .lista li:nth-child(odd) {
+    border-right: 0;
+  }
+  .lista li:nth-child(even) {
+    padding-left: 0;
+  }
+}

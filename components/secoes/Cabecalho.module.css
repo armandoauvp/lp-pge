@@ -1,0 +1,78 @@
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--tinta);
+  border-bottom: var(--fio-escuro);
+}
+
+.linha {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 76px;
+}
+
+.marca {
+  display: block;
+  /* A sigla sobe acima da caixa do símbolo, como no Figma */
+  padding: 16px 0 8px;
+}
+
+.assinatura {
+  width: 168px;
+}
+
+.nav {
+  margin-left: auto;
+}
+
+.nav ul {
+  display: flex;
+  gap: 4px;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--neutro-300);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border-radius: var(--r-campo);
+  transition: color 150ms var(--ease);
+}
+
+.nav a:hover {
+  color: var(--branco);
+}
+
+.cta {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 960px) {
+  .nav {
+    display: none;
+  }
+  .cta {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .linha {
+    gap: 12px;
+  }
+  .assinatura {
+    width: 132px;
+  }
+  .cta {
+    padding: 0 14px;
+    font-size: 0.875rem;
+  }
+}

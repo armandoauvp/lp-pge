@@ -1,0 +1,46 @@
+.secao {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.foto {
+  z-index: -2;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.veu {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(13 22 38 / 0.82);
+}
+
+.conteudo {
+  padding-block: clamp(96px, 14vw, 184px);
+}
+
+.aspa {
+  color: var(--acento-claro);
+}
+
+.texto {
+  max-width: 30ch;
+  margin-top: 32px;
+  font-size: var(--t-1);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+
+.autor {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 40px;
+}
+
+.autor span {
+  color: var(--neutro-300);
+}

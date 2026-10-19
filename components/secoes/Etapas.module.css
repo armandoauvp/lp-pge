@@ -1,0 +1,92 @@
+.secao {
+  background: var(--branco);
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+.cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 48px;
+  padding-bottom: 40px;
+}
+
+.titulo {
+  font-size: var(--t-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.texto {
+  max-width: 34ch;
+  color: var(--base-600);
+  font-size: 1.0625rem;
+}
+
+/* Linhas com fios aparentes, à moda da referência Netcraft */
+.lista {
+  border-top: 2px solid var(--base);
+}
+
+.etapa {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 3fr) minmax(0, 5fr) minmax(0, 4fr);
+  gap: 16px 32px;
+  align-items: start;
+  padding-block: 32px;
+  border-bottom: var(--fio);
+}
+
+.marcador {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: calc(40px * var(--r-celula));
+  background: var(--acento);
+  color: var(--tinta);
+  font-weight: 700;
+}
+
+.nome {
+  font-size: var(--t-2);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  padding-top: 4px;
+}
+
+.faz {
+  color: var(--base-600);
+  padding-top: 6px;
+}
+
+.fica {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0 0 24px;
+  border-left: var(--fio);
+  font-weight: 600;
+}
+
+.ficaRotulo {
+  color: var(--base-600);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .etapa {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+  .faz,
+  .fica {
+    grid-column: 2;
+  }
+  .fica {
+    padding-left: 16px;
+  }
+}

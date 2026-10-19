@@ -1,0 +1,21 @@
+.malha rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  /* Única entrada orquestrada da página */
+  animation: entra 280ms var(--ease) both;
+}
+
+.celula {
+  fill: var(--base-600);
+}
+
+.acento {
+  fill: var(--acento);
+}
+
+@keyframes entra {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
