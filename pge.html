@@ -520,41 +520,36 @@
 }
 
 /* Entrada: foto e texto esperam as células; quando revelada, a foto clareia e assenta devagar */
-#pge .pge-hero.pge-intro .pge-hero-foto {
+#pge .pge-hero.pge-entrando .pge-hero-foto {
   opacity: 0;
   scale: 1.08;
 }
 
-#pge .pge-hero.pge-intro .pge-hero-veu {
+#pge .pge-hero.pge-entrando .pge-hero-veu {
   opacity: 0;
 }
 
-#pge .pge-hero.pge-intro .pge-conteudo > * {
+#pge .pge-hero.pge-entrando .pge-conteudo > * {
   opacity: 0;
   translate: 0 18px;
 }
 
-#pge .pge-hero.pge-intro.pge-revelada .pge-hero-foto {
+#pge .pge-hero.pge-entrando.pge-revelada .pge-hero-foto {
   opacity: 1;
   scale: 1;
   transition: opacity 900ms var(--pge-ease), scale 2600ms var(--pge-ease);
 }
 
-#pge .pge-hero.pge-intro.pge-revelada .pge-hero-veu {
+#pge .pge-hero.pge-entrando.pge-revelada .pge-hero-veu {
   opacity: 1;
   transition: opacity 900ms var(--pge-ease);
 }
 
-#pge .pge-hero.pge-intro.pge-revelada .pge-conteudo > * {
+#pge .pge-hero.pge-entrando.pge-revelada .pge-conteudo > * {
   opacity: 1;
   translate: 0 0;
   transition: opacity 600ms var(--pge-ease), translate 700ms var(--pge-ease);
   transition-delay: calc(var(--i, 0) * 90ms + 60ms);
-}
-
-#pge .pge-hero.pge-intro.pge-revelada .pge-conteudo > .pge-dica.pge-some {
-  opacity: 0;
-  transition-delay: 0ms;
 }
 
 #pge .pge-hero-canvas {
@@ -563,7 +558,6 @@
   display: none;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   touch-action: manipulation;
 }
 
@@ -573,18 +567,6 @@
 
 #pge .pge-hero.pge-canvas-on .pge-malha-hero {
   display: none;
-}
-
-#pge .pge-dica {
-  margin-top: 8px;
-  color: var(--pge-neutro-300);
-  font-size: 14px;
-  pointer-events: none;
-  transition: opacity 300ms var(--pge-ease);
-}
-
-#pge .pge-dica.pge-some {
-  opacity: 0;
 }
 
 @keyframes pge-entra {
@@ -643,7 +625,7 @@
 /* ---------- Faixa de malha uniforme (interativa) ---------- */
 
 /* Faixa de borda a borda: a malha sangra pelos quatro lados e as células crescem e encolhem
-   numa onda que flui com o scroll. Cursor abre uma lente; clique solta uma onda coral */
+   numa onda que flui com o scroll. Cursor e clique são um extra discreto, sem nada que chame para eles */
 #pge .pge-faixa {
   position: relative;
   height: 200px;
@@ -661,7 +643,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  cursor: pointer;
   touch-action: manipulation;
 }
 
@@ -814,7 +795,40 @@
 }
 
 #pge .pge-citacao figure {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: clamp(32px, 5vw, 64px);
+  align-items: center;
   padding-block: clamp(96px, 14vw, 184px);
+}
+
+#pge .pge-citacao figure > .pge-aspa,
+#pge .pge-citacao figure > blockquote {
+  grid-column: 1 / -1;
+}
+
+/* Legenda à esquerda e CTA à direita, na mesma linha */
+#pge .pge-citacao figure > figcaption {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+#pge .pge-citacao .pge-citacao-cta {
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: 40px;
+}
+
+@media (max-width: 640px) {
+  #pge .pge-citacao figure {
+    grid-template-columns: 1fr;
+  }
+  #pge .pge-citacao .pge-citacao-cta {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: start;
+    margin-top: 28px;
+  }
 }
 
 #pge .pge-aspa {
@@ -2070,7 +2084,6 @@
           <a class="pge-link" href="#pge-etapas">Ver o que o treinamento cobre</a>
         </div>
         <p class="pge-status">Primeira turma com data a definir.</p>
-        <p class="pge-dica" data-dica hidden>Clique na malha para bagunçar. Ela volta para a ordem.</p>
       </div>
     </section>
 
@@ -2117,6 +2130,8 @@
       <figure class="pge-wrap">
         <svg class="pge-aspa" width="64" height="30" aria-hidden="true"><use href="#pge-aspa"/></svg>
         <blockquote data-revela><p>Atuamos nos bastidores para trazer clareza estratégica. Com dados e estrutura na mesa, a decisão final sobre o futuro do seu negócio continua sendo sua.</p></blockquote>
+        <!-- O CTA vem antes da legenda no código (a legenda precisa ser o último filho da figure), mas a grade o coloca à direita dela -->
+        <a class="pge-botao pge-botao-primario pge-caixa-alta pge-citacao-cta" href="#pge-interesse" data-cta="citacao" data-texto-checkout="GARANTIR MINHA VAGA" data-revela style="--d:300">ENTRE PARA A PRIMEIRA TURMA</a>
         <figcaption data-revela style="--d:200"><strong>Rodolfo Oliveira</strong><span>Fundador e presidente do conselho da XR Advisor</span></figcaption>
       </figure>
     </section>
@@ -2963,7 +2978,6 @@
          Dono de cada célula: bagunça do clique > cursor. Clicar durante a entrada pula direto para o fim. --- */
   var hero = raiz.querySelector(".pge-hero");
   var canvas = raiz.querySelector("[data-hero-canvas]");
-  var dica = raiz.querySelector("[data-dica]");
   if (hero && canvas && canvas.getContext) {
     var ctx = canvas.getContext("2d");
     var L = 0, A = 0, dpr = 1, S0 = 0, cels = [], grade = [];
@@ -2996,29 +3010,33 @@
       canvas.width = Math.round(L * dpr);
       canvas.height = Math.round(A * dpr);
       var celular = L < 720;
-      var N = celular ? 6 : 9;
+      // Geometria da capa A01 do manual: 5 linhas; o lado diminui em passos iguais (5,7% do maior) a cada
+      // passo na diagonal; folga constante de 0,29 do maior lado; a malha sangra pelo topo e pela direita
+      var LINHAS = 5, PASSO = 0.0571, FOLGA = 0.2857;
 
-      // Área calma: as linhas de texto e os botões do hero, com 20px de folga
+      // Área calma: as linhas de texto e os botões do hero, com 24px de folga
       var calmas = [];
-      raiz.querySelectorAll(".pge-hero h1, .pge-hero .pge-lead, .pge-hero .pge-acoes > *").forEach(function (el) {
+      raiz.querySelectorAll(".pge-hero h1, .pge-hero .pge-lead, .pge-hero .pge-acoes > *, .pge-hero .pge-status").forEach(function (el) {
         var rg = document.createRange();
         rg.selectNodeContents(el);
         Array.prototype.forEach.call(el.matches(".pge-acoes > *") ? [el.getBoundingClientRect()] : rg.getClientRects(), function (r) {
-          calmas.push({ l: r.left - caixa.left - 20, t: r.top - caixa.top - 20, r: r.right - caixa.left + 20, b: r.bottom - caixa.top + 20 });
+          calmas.push({ l: r.left - caixa.left - 24, t: r.top - caixa.top - 24, r: r.right - caixa.left + 24, b: r.bottom - caixa.top + 24 });
         });
       });
 
       var gera = function (s0) {
         var lista = [];
-        var yTopo = -s0 * 0.3;
-        for (var lin = 0; lin <= N; lin++) {
-          var xDir = L + s0 * 0.22;
-          for (var col = 0; col <= N - lin; col++) {
-            var s = s0 * Math.pow(0.94, lin + col);
-            lista.push({ ox: xDir - s / 2, oy: yTopo + s / 2, s: s, acento: lin >= 1 && col === N - lin, atraso: (lin + col) * 45 });
-            xDir -= s * 1.29;
+        var gap = s0 * FOLGA;
+        var yTopo = -s0 * 0.495;
+        for (var lin = 0; lin < LINHAS; lin++) {
+          var xDir = L + s0 * 0.99;
+          var ultima = lin === 0 ? LINHAS - 1 : LINHAS - lin;
+          for (var col = 0; col <= ultima; col++) {
+            var s = s0 * (1 - PASSO * (lin + col));
+            lista.push({ ox: xDir - s / 2, oy: yTopo + s / 2, s: s, acento: lin >= 1 && col === ultima, atraso: (lin + col) * 45 });
+            xDir -= s + gap;
           }
-          yTopo += s0 * Math.pow(0.94, lin) * 1.29;
+          yTopo += s0 * (1 - PASSO * lin) + gap;
         }
         return lista;
       };
@@ -3029,14 +3047,13 @@
         });
       };
 
-      // Começa no tamanho ideal e encolhe até a malha não tocar no texto
-      S0 = celular ? L * 0.095 : Math.min(L * 0.062, 112);
+      // Começa no tamanho da capa (8,4% da largura) e encolhe só se encostar no texto
+      S0 = celular ? L * 0.2 : Math.min(L * 0.084, 160);
       var lista = gera(S0);
-      while (invade(lista) && S0 > 18) {
-        S0 *= 0.95;
+      while (invade(lista) && S0 > 24) {
+        S0 *= 0.96;
         lista = gera(S0);
       }
-
       cels = lista.map(function (c) {
         c.jx = aleatorio() - 0.5;
         c.jy = aleatorio() - 0.5;
@@ -3156,7 +3173,7 @@
 
     hero.classList.add("pge-canvas-on");
     if (anima) {
-      hero.classList.add("pge-intro");
+      hero.classList.add("pge-entrando");
       // O texto entra em sequência quando a foto aparece
       Array.prototype.forEach.call(hero.querySelectorAll(".pge-conteudo > *"), function (el, i) {
         el.style.setProperty("--i", i);
@@ -3185,11 +3202,6 @@
         if (fase !== "pronta") reatribui();
         agenda();
       });
-      if (dica) {
-        if (!temHover) dica.textContent = "Toque na malha para bagunçar. Ela volta para a ordem.";
-        dica.hidden = false;
-      }
-
       // O observer dispara uma vez ao começar; só uma mudança real de largura interrompe a entrada
       var redimHero, larguraAntes = hero.getBoundingClientRect().width;
       new ResizeObserver(function () {
@@ -3225,7 +3237,6 @@
         var caixa = hero.getBoundingClientRect();
         cliques.push({ x: e.clientX - caixa.left, y: e.clientY - caixa.top, t0: performance.now() });
         if (cliques.length > 3) cliques.shift();
-        if (dica) dica.classList.add("pge-some");
         agenda();
       });
 
