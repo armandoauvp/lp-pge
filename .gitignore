@@ -5,3 +5,8 @@ next-env.d.ts
 *.tsbuildinfo
 .env*.local
 .vercel
+previa/
+# Fotos brutas dos eventos e vídeos de referência (pesados, ficam só na máquina)
+Lucas/
+Rodolfo/
+ref videos/
