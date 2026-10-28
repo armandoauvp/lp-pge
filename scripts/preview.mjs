@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const arquivo = fileURLToPath(new URL("../pge.html", import.meta.url));
+const arquivoB = fileURLToPath(new URL("../pge-b.html", import.meta.url));
 const porta = Number(process.env.PORT ?? 3001);
 
 const casca = (bloco) => `<!doctype html>
@@ -41,8 +42,10 @@ createServer(async (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
     return;
   }
-  if (req.url === "/" || req.url?.startsWith("/?")) {
-    const bloco = await readFile(arquivo, "utf8");
+  // /b mostra a versão B (pge-b.html, gerada por scripts/versao-b.mjs)
+  const versaoB = /^\/b\/?(\?|$)/.test(req.url ?? "");
+  if (versaoB || req.url === "/" || req.url?.startsWith("/?")) {
+    const bloco = await readFile(versaoB ? arquivoB : arquivo, "utf8");
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" }).end(casca(bloco));
     return;
   }

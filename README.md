@@ -43,11 +43,21 @@ GA4: o código não instala o GA4. Se `gtag` ou o `dataLayer` do GTM já estiver
 node scripts/preview.mjs
 ```
 
-Abre em `http://localhost:3001`, simulando a página Canvas com estilos de tema propositalmente hostis e um webhook de teste.
+Abre em `http://localhost:3001`, simulando a página Canvas com estilos de tema propositalmente hostis e um webhook de teste. A versão B fica em `http://localhost:3001/b`.
+
+## Versão B
+
+[pge-b.html](pge-b.html) é a mesma página com outro hero: os quatro tutores em escada, no lugar da foto do Rodolfo. Ela é gerada a partir do `pge.html` e não deve ser editada à mão. Depois de mudar o `pge.html`, rode:
+
+```bash
+node scripts/versao-b.mjs
+```
+
+Para publicar a B no Elementor, cole o `pge-b.html` no widget HTML do mesmo jeito que o `pge.html`. Na prévia da Vercel, ela fica em `/b`.
 
 ## Pendências
 
-- Fotos de Rodolfo e Lucas (os retratos têm um placeholder com a malha) e foto da citação (Unsplash, provisória).
+- Foto da citação (Unsplash, provisória).
 - Itens `VALIDAR` no HTML: conteúdo das etapas, formato e carga horária, e-mail oficial.
 - Números divergentes do dossiê ficaram de fora até a validação.
 
