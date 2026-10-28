@@ -47,7 +47,7 @@ Abre em `http://localhost:3001`, simulando a página Canvas com estilos de tema 
 
 ## Versão B
 
-[pge-b.html](pge-b.html) é a mesma página com outro hero: os quatro tutores em escada, no lugar da foto do Rodolfo. Ela é gerada a partir do `pge.html` e não deve ser editada à mão. Depois de mudar o `pge.html`, rode:
+[pge-b.html](pge-b.html) é a mesma página com o hero antigo: foto da mesa de reunião e malha animada da marca. Ela é gerada a partir do `pge.html` (o hero vem do commit `1cf83d7`) e não deve ser editada à mão. Depois de mudar o `pge.html`, rode:
 
 ```bash
 node scripts/versao-b.mjs
