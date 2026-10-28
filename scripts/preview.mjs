@@ -35,7 +35,9 @@ createServer(async (req, res) => {
   if (req.method === "POST" && req.url === "/webhook-teste") {
     let corpo = "";
     for await (const parte of req) corpo += parte;
-    console.log("[webhook-teste]", Object.fromEntries(new URLSearchParams(corpo)));
+    // Responde como o scripts/google-sheets.gs: descarta o que vier com o campo anti-spam
+    const dados = Object.fromEntries(new URLSearchParams(corpo));
+    console.log(dados.site ? "[webhook-teste] descartado (anti-spam)" : "[webhook-teste]", dados);
     res.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
     return;
   }

@@ -16,10 +16,24 @@ A entrega é um arquivo só: [pge.html](pge.html). CSS, JS e os SVGs da marca v�
 
 No fim de `pge.html`, o objeto `CONFIG`:
 
-- `webhookUrl`: endpoint do CRM. O envio é `application/x-www-form-urlencoded` com `nome`, `email`, `telefone`, `empresa`, `cargo`, `consentimento`, `origem`, `pagina` e os `utm_*` da URL.
-- `semCors`: `true` se o CRM não devolver cabeçalhos CORS (o envio segue, sem conferir a resposta).
+- `webhookUrl`: URL do App da Web do Apps Script (abaixo). O envio é `application/x-www-form-urlencoded` com `nome`, `email`, `telefone`, `empresa`, `cargo`, `consentimento`, `autoavaliacao`, `site` (anti-spam), `origem`, `pagina` e os `utm_*` da URL. A página só mostra sucesso se a resposta for `{"ok": true}`; se um dia o destino virar o webhook do CRM, ajuste essa conferência.
+- `semCors`: `true` se o destino não devolver cabeçalhos CORS (o envio segue, sem conferir a resposta).
 - `checkoutUrl`: quando existir, todos os botões de CTA passam a levar ao checkout.
 - `politicaUrl`: link da política de privacidade no consentimento.
+
+### Leads no Google Sheets
+
+O formulário grava na planilha por meio de [scripts/google-sheets.gs](scripts/google-sheets.gs).
+
+1. Crie uma planilha no Google Sheets (ex.: "PGE · Leads"). Não precisa criar cabeçalhos: o script cria a aba `Leads` com as colunas no primeiro envio.
+2. Na planilha, abra **Extensões → Apps Script**, apague o conteúdo de `Código.gs`, cole o arquivo inteiro e salve.
+3. Clique em **Implantar → Nova implantação**, escolha o tipo **App da Web** e configure: *Executar como*: **Eu**; *Quem pode acessar*: **Qualquer pessoa**.
+4. Autorize o acesso à planilha quando o Google pedir. Se aparecer "O Google não verificou este app", use **Avançado → Acessar** (o app é seu).
+5. Copie a URL que termina em `/exec` e cole em `CONFIG.webhookUrl` no `pge.html`. Abrir essa URL no navegador deve mostrar `{"ok":true,"servico":"pge-leads"}`.
+
+Se você alterar o script depois, publique de novo em **Implantar → Gerenciar implantações → editar → Nova versão**. Assim a URL continua a mesma. Uma "Nova implantação" gera outra URL.
+
+A planilha guarda nome, e-mail e telefone: deixe o compartilhamento restrito a quem trata os leads. Envios com o campo invisível `site` preenchido (robôs) recebem "ok", mas não são gravados.
 
 GA4: o código não instala o GA4. Se `gtag` ou o `dataLayer` do GTM já estiverem na página, dispara `pge_clique_cta` e `generate_lead`.
 
