@@ -26,6 +26,17 @@ const troca = (de, ate, nome) => {
 let h = atual;
 // Markup do hero
 troca(['<section id="pge-topo" class="pge-hero"', "</section>"], ['<section id="pge-topo" class="pge-hero"', "</section>"], "o markup do hero");
+// Do hero antigo fica só a parte visual: título, texto e botões são os de hoje, sem a legenda da foto do Rodolfo
+{
+  const marca = '<div class="pge-wrap pge-conteudo">';
+  const fimDe = (texto, ini) => texto.indexOf("</section>", ini);
+  const [i] = trecho(atual, marca, "</section>", "o texto do hero no pge.html");
+  const textoHero = atual.slice(i, fimDe(atual, i)).replace(/\s*<p class="pge-hero-legenda">[^]*?<\/p>/, "");
+  const ini = h.indexOf('<section id="pge-topo"');
+  const c = h.indexOf(marca, ini);
+  if (ini < 0 || c < 0) throw new Error("versao-b: não achei o texto do hero antigo");
+  h = h.slice(0, c) + textoHero + h.slice(fimDe(h, c));
+}
 // CSS do hero
 troca(["/* ---------- Hero ---------- */", "/* ---------- Faixa de malha uniforme"], ["/* ---------- Hero ---------- */", "/* ---------- Faixa de malha uniforme"], "o CSS do hero");
 // Regras do hero no celular

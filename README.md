@@ -58,6 +58,7 @@ Para publicar a B no Elementor, cole o `pge-b.html` no widget HTML do mesmo jeit
 ## Pendências
 
 - Foto da citação (Unsplash, provisória).
+- Conteúdo programático: módulos e tópicos são uma sugestão inicial, a revisar com quem desenhou o treinamento.
 - Itens `VALIDAR` no HTML: conteúdo das etapas, formato e carga horária, e-mail oficial.
 - Números divergentes do dossiê ficaram de fora até a validação.
 

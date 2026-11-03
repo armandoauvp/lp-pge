@@ -895,7 +895,7 @@
 }
 
 #pge .pge-etapas-cabeca .pge-texto {
-  max-width: 40ch;
+  max-width: 54ch;
 }
 
 #pge .pge-etapas ol {
@@ -1030,6 +1030,265 @@
   color: var(--pge-base-600);
   font-size: 14px;
   font-weight: 400;
+}
+
+/* ---------- Conteúdo programático ---------- */
+
+/* O fundo alterna entre dois tons a cada módulo (classe posta pelo JS) */
+#pge .pge-programa {
+  --pge-tom: var(--pge-base);
+  background-color: var(--pge-tom);
+  transition: background-color 600ms var(--pge-ease);
+}
+
+#pge .pge-programa.pge-tom-alt {
+  --pge-tom: #162033;
+}
+
+/* Cabeçalho em cima; embaixo a escada fica fixa à esquerda enquanto os módulos passam à direita */
+#pge .pge-programa .pge-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: start;
+  padding-block: clamp(80px, 11vw, 144px);
+}
+
+#pge .pge-programa .pge-intro {
+  grid-column: 1 / -1;
+}
+
+/* O título fica sempre em uma linha; no celular a fonte acompanha a largura para caber */
+#pge .pge-programa .pge-h2 {
+  font-size: min(var(--pge-t-1), 7.6vw);
+  white-space: nowrap;
+}
+
+#pge:not(.pge-js) .pge-programa-placar {
+  display: none;
+}
+
+#pge .pge-programa-placar {
+  position: sticky;
+  top: calc(var(--pge-topo) + 112px);
+}
+
+#pge .pge-programa-num {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: clamp(88px, 8vw, 132px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+#pge .pge-programa-num span {
+  display: inline-block;
+}
+
+#pge .pge-programa-num small {
+  color: var(--pge-neutro-300);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+#pge .pge-programa-escada {
+  margin-top: 24px;
+}
+
+/* Oito degraus crescentes; os já vencidos ficam claros e o atual em coral */
+#pge .pge-degraus {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 6px;
+  align-items: end;
+  height: clamp(72px, 7vw, 104px);
+}
+
+#pge .pge-degraus span {
+  display: block;
+  height: calc(var(--n) / 8 * 100%);
+  border-radius: 6px;
+  background: var(--pge-base-600);
+  transition: background-color 320ms var(--pge-ease);
+}
+
+#pge .pge-degraus span.pge-cheio {
+  background: var(--pge-neutro-300);
+}
+
+#pge .pge-degraus span.pge-atual {
+  background: var(--pge-acento);
+}
+
+/* Cada etapa fica sob os seus dois degraus */
+#pge .pge-programa-etapas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--pge-neutro-500);
+  font-size: 13px;
+}
+
+#pge .pge-programa-etapas span {
+  transition: color 320ms var(--pge-ease);
+}
+
+#pge .pge-programa-etapas span.pge-ativo {
+  color: var(--pge-branco);
+  font-weight: 600;
+}
+
+#pge .pge-modulo {
+  padding-block: clamp(32px, 4vw, 48px);
+  border-top: var(--pge-fio-escuro);
+}
+
+#pge .pge-modulo:last-child {
+  border-bottom: var(--pge-fio-escuro);
+}
+
+#pge .pge-modulo-tag {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--pge-neutro-300);
+  font-size: 14px;
+}
+
+#pge .pge-modulo-tag strong {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+/* Célula da marca: acende em coral no módulo atual */
+#pge .pge-modulo-tag strong::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--pge-acento);
+  transition: background-color 320ms var(--pge-ease);
+}
+
+#pge.pge-js .pge-modulo:not(.pge-ativo) .pge-modulo-tag strong::before {
+  background: var(--pge-base-600);
+}
+
+#pge .pge-modulo h3 {
+  margin-top: 16px;
+  font-size: var(--pge-t-1);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  transition: color 320ms var(--pge-ease);
+}
+
+#pge.pge-js .pge-modulo:not(.pge-ativo) h3 {
+  color: var(--pge-base-400);
+}
+
+#pge .pge-modulo ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 32px;
+  margin-top: 24px;
+}
+
+#pge .pge-modulo ul li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--pge-neutro-300);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+#pge .pge-modulo ul li::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--pge-base-400);
+}
+
+/* Ao entrar na tela, o módulo sobe de leve */
+#pge.pge-anima .pge-modulo {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity 700ms var(--pge-ease), translate 800ms var(--pge-ease);
+}
+
+#pge.pge-anima .pge-modulo.pge-visto {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (max-width: 960px) {
+  /* Uma coluna: a escada vira uma barra fixa logo abaixo do cabeçalho */
+  #pge .pge-programa .pge-wrap {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  #pge .pge-programa-placar {
+    top: calc(var(--pge-topo) + 81px);
+    z-index: 5;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    margin: 24px calc(var(--pge-gutter) * -1) 0;
+    padding: 12px var(--pge-gutter);
+    background-color: var(--pge-tom);
+    border-bottom: var(--pge-fio-escuro);
+    transition: background-color 600ms var(--pge-ease);
+  }
+  #pge .pge-programa-num {
+    gap: 6px;
+    font-size: 32px;
+  }
+  #pge .pge-programa-num small {
+    font-size: 13px;
+  }
+  #pge .pge-programa-escada {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 6px;
+    margin-top: 0;
+  }
+  #pge .pge-degraus {
+    gap: 4px;
+    height: 8px;
+  }
+  #pge .pge-degraus span {
+    height: 100%;
+    border-radius: 3px;
+  }
+  /* Na barra só cabe o nome da etapa atual */
+  #pge .pge-programa-etapas {
+    display: block;
+    margin-top: 0;
+  }
+  #pge .pge-programa-etapas span:not(.pge-ativo) {
+    display: none;
+  }
+  #pge .pge-modulo:first-child {
+    border-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  #pge .pge-modulo ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* ---------- Capital e oito pontos ---------- */
@@ -2110,13 +2369,13 @@
         <rect class="pge-acento" x="1756.92" y="695.38" width="115.385" height="115.385" rx="39.23" style="animation-delay:630ms"/>
       </svg>
       <div class="pge-wrap pge-conteudo">
-        <h1 id="pge-hero-titulo">Estruturar a empresa para o próximo estágio</h1>
-        <p class="pge-lead">Treinamento de governança para donos e executivos de pequenas e médias empresas. Você aprende a organizar sócios, gestão e números para crescer com estrutura, captar recursos ou preparar um M&amp;A.</p>
+        <h1 id="pge-hero-titulo">Estruture sua empresa para o próximo estágio</h1>
+        <p class="pge-lead">O PGE, Programa de Governança Empresarial, é um treinamento em aulas gravadas para donos e executivos de pequenas e médias empresas. Você aprende a organizar sócios, gestão e números para crescer com estrutura, captar recursos ou preparar um M&amp;A.</p>
         <div class="pge-acoes">
           <a class="pge-botao pge-botao-primario pge-caixa-alta" href="#pge-interesse" data-cta="hero" data-texto-checkout="GARANTIR MINHA VAGA">ENTRE PARA A PRIMEIRA TURMA</a>
-          <a class="pge-link" href="#pge-etapas">Ver o que o treinamento cobre</a>
+          <a class="pge-link" href="#pge-programa">Ver o que o treinamento cobre</a>
         </div>
-        <p class="pge-status">Primeira turma com data a definir.</p>
+        <p class="pge-status">Aulas gravadas. Primeira turma com data a definir.</p>
       </div>
     </section>
 
@@ -2140,13 +2399,13 @@
           </li>
           <li>
             <span class="pge-pilha" aria-hidden="true"><span></span><span></span><span></span></span>
-            <h3>Gestão com dado</h3>
+            <h3>Gestão com dados</h3>
             <p>Indicador na mesa toda semana.</p>
           </li>
           <li>
             <span class="pge-pilha" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
             <h3>Conselho decide</h3>
-            <p>O fundador escolhe onde entra.</p>
+            <p>Diretoria escala apenas assuntos relevantes ao fundador.</p>
           </li>
         </ol>
       </div>
@@ -2174,7 +2433,7 @@
       <div class="pge-wrap">
         <div class="pge-etapas-cabeca">
           <h2 id="pge-etapas-titulo" class="pge-display" data-revela="titulo">Quatro etapas</h2>
-          <p class="pge-texto" data-revela style="--d:150">Do diagnóstico à preparação para captar ou vender. Cada etapa termina com algo que você aplica na sua empresa.</p>
+          <p class="pge-texto" data-revela style="--d:150">Esta é a grade do treinamento: quatro etapas em aulas gravadas, do diagnóstico à preparação para captar ou vender. Cada etapa termina com algo que você aplica na sua empresa.</p>
         </div>
         <ol>
           <li class="pge-etapa" data-ver>
@@ -2204,6 +2463,122 @@
         </ol>
       </div>
     </section>
+
+    <!-- VALIDAR: módulos e tópicos são uma sugestão inicial, a partir das etapas e dos oito pontos. Revisar com quem desenhou o treinamento -->
+    <section id="pge-programa" class="pge-programa pge-escuro" data-programa aria-labelledby="pge-programa-titulo">
+      <div class="pge-wrap">
+        <div class="pge-intro">
+          <h2 id="pge-programa-titulo" class="pge-h2" data-revela="titulo">Conteúdo programático</h2>
+          <p class="pge-texto" data-revela style="--d:150">São oito módulos de aulas gravadas, organizados nas quatro etapas. Depois da compra, você recebe o acesso às aulas.</p>
+        </div>
+        <!-- Escada do kit gráfico: sobe com o scroll, até o módulo que está no meio da tela -->
+        <div class="pge-programa-placar" aria-hidden="true">
+          <p class="pge-programa-num"><span data-modulo-num>01</span><small>de 8</small></p>
+          <div class="pge-programa-escada">
+            <div class="pge-degraus" data-degraus>
+              <span style="--n: 1"></span>
+              <span style="--n: 2"></span>
+              <span style="--n: 3"></span>
+              <span style="--n: 4"></span>
+              <span style="--n: 5"></span>
+              <span style="--n: 6"></span>
+              <span style="--n: 7"></span>
+              <span style="--n: 8"></span>
+            </div>
+            <div class="pge-programa-etapas" data-etapas>
+              <span>Diagnóstico</span><span>Estrutura</span><span>Gestão</span><span>Valor</span>
+            </div>
+          </div>
+        </div>
+        <ol class="pge-modulos">
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 1</strong><span>Diagnóstico</span></p>
+            <h3>O estágio da sua empresa</h3>
+            <ul>
+              <li>Os quatro estágios, do fundador que faz tudo ao conselho</li>
+              <li>Mapa de maturidade: pessoas, processos, tecnologia e governança</li>
+              <li>Quanto da operação depende do fundador</li>
+              <li>Como definir o que resolver primeiro</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 2</strong><span>Diagnóstico</span></p>
+            <h3>A empresa pelos olhos do investidor</h3>
+            <ul>
+              <li>Os oito pontos que a XR Advisor avalia antes de investir</li>
+              <li>Consistência de receita e dependência de clientes</li>
+              <li>Qualidade do EBITDA</li>
+              <li>Posição de mercado e concorrência</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 3</strong><span>Estrutura</span></p>
+            <h3>Sócios e acordo de sócios</h3>
+            <ul>
+              <li>O papel de cada sócio na operação e na sociedade</li>
+              <li>Cláusulas essenciais do acordo de sócios</li>
+              <li>Vesting e entrada de novos sócios</li>
+              <li>Holding e organização societária</li>
+              <li>Saída de sócio e sucessão</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 4</strong><span>Estrutura</span></p>
+            <h3>Organograma e conselho</h3>
+            <ul>
+              <li>Organograma: cada função com um dono</li>
+              <li>Alçadas: o que a diretoria decide e o que escala ao fundador</li>
+              <li>Conselho consultivo: quando montar e quem convidar</li>
+              <li>Pauta, ata e rotina de reuniões</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 5</strong><span>Gestão</span></p>
+            <h3>Metas e rotina de gestão</h3>
+            <ul>
+              <li>Do planejamento estratégico às metas por área</li>
+              <li>Indicadores e rotina semanal de acompanhamento</li>
+              <li>Comitê executivo que decide sem esperar o fundador</li>
+              <li>Formação de líderes e remuneração variável</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 6</strong><span>Gestão</span></p>
+            <h3>Os números da empresa</h3>
+            <ul>
+              <li>DRE gerencial e fluxo de caixa</li>
+              <li>EBITDA e margem por produto ou cliente</li>
+              <li>Orçamento e controladoria</li>
+              <li>Separação entre as contas dos sócios e as da empresa</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 7</strong><span>Valor</span></p>
+            <h3>Valuation e estrutura de capital</h3>
+            <ul>
+              <li>Como avaliar uma empresa: múltiplos e fluxo de caixa descontado</li>
+              <li>O que aumenta e o que reduz o valor</li>
+              <li>Dívida, sócios e participações</li>
+              <li>Quando faz sentido buscar smart money</li>
+            </ul>
+          </li>
+          <li class="pge-modulo" data-ver>
+            <p class="pge-modulo-tag"><strong>Módulo 8</strong><span>Valor</span></p>
+            <h3>Captação e M&amp;A</h3>
+            <ul>
+              <li>Captar, vender ou comprar: como decidir</li>
+              <li>Documentos e números que o investidor pede na diligência</li>
+              <li>As fases de um M&amp;A, da tese ao fechamento</li>
+              <li>Term sheet e negociação</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="pge-faixa" aria-hidden="true">
+      <canvas data-faixa></canvas>
+    </div>
 
     <!-- Autoavaliação: os oito pontos do post @xradvisor de 30/07/2026.
          VALIDAR: a descrição de "resolvido" em cada ponto e os textos de resultado -->
@@ -2280,7 +2655,7 @@
         <div class="pge-depoimentos" data-revela-grupo>
           <figure class="pge-depoimento-principal">
             <svg class="pge-aspa" width="64" height="30" aria-hidden="true"><use href="#pge-aspa"/></svg>
-            <blockquote><p>Antes era uma empresa antes da XR, e agora é outra completamente diferente, com governança. Aprendi muito sobre isso, e me deixou muito mais livre com o tempo.</p></blockquote>
+            <blockquote><p>Era uma empresa antes da XR, e agora é outra completamente diferente, com governança. Aprendi muito sobre isso, e me deixou muito mais livre com o tempo.</p></blockquote>
             <figcaption><strong>Pedro Miranda</strong>, IPM Educação. <a href="https://www.instagram.com/reel/DejvihoOQ9T/" target="_blank" rel="noopener noreferrer">Assistir ao vídeo no Instagram</a></figcaption>
           </figure>
           <figure class="pge-depoimento">
@@ -2441,7 +2816,7 @@
           <!-- As duas primeiras respondem de forma direta o que buscadores e assistentes de IA costumam citar -->
           <details>
             <summary>O que é o PGE?<span class="pge-sinal" aria-hidden="true"></span></summary>
-            <p>O PGE, Programa de Governança Empresarial, é um treinamento da XR Advisor para donos e executivos de pequenas e médias empresas. Ensina a estruturar governança, gestão e números para a empresa crescer com profissionalização, captar recursos ou passar por um processo de M&amp;A.</p>
+            <p>O PGE, Programa de Governança Empresarial, é um treinamento em aulas gravadas da XR Advisor para donos e executivos de pequenas e médias empresas. Ensina a estruturar governança, gestão e números para a empresa crescer com profissionalização, captar recursos ou passar por um processo de M&amp;A.</p>
           </details>
           <details>
             <summary>Quem conduz o PGE?<span class="pge-sinal" aria-hidden="true"></span></summary>
@@ -2451,10 +2826,10 @@
             <summary>Quanto custa?<span class="pge-sinal" aria-hidden="true"></span></summary>
             <p>O investimento será informado junto com a abertura das inscrições.</p>
           </details>
-          <!-- VALIDAR: formato e carga horária -->
+          <!-- VALIDAR: carga horária e se o acesso tem prazo -->
           <details>
             <summary>Qual é o formato e a duração?<span class="pge-sinal" aria-hidden="true"></span></summary>
-            <p>O formato e a carga horária serão divulgados com a data da turma.</p>
+            <p>São aulas gravadas. Depois da compra, você recebe o acesso e assiste no seu ritmo. A carga horária será divulgada com a data da turma.</p>
           </details>
           <details>
             <summary>Há limite de vagas?<span class="pge-sinal" aria-hidden="true"></span></summary>
@@ -2574,7 +2949,7 @@
       "alternateName": "PGE",
       "url": "https://www.xradvisor.com.br/pge/",
       "inLanguage": "pt-BR",
-      "description": "Treinamento de governança para donos e executivos de pequenas e médias empresas. Ensina a organizar sócios, gestão e números para crescer com estrutura, captar recursos ou preparar um M&A.",
+      "description": "Treinamento em aulas gravadas sobre governança, para donos e executivos de pequenas e médias empresas. Ensina a organizar sócios, gestão e números para crescer com estrutura, captar recursos ou preparar um M&A.",
       "provider": {
         "@id": "https://www.xradvisor.com.br/#organizacao"
       },
@@ -2604,6 +2979,10 @@
       "audience": {
         "@type": "BusinessAudience",
         "audienceType": "Donos e executivos de pequenas e médias empresas"
+      },
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online"
       }
     },
     {
@@ -2615,7 +2994,7 @@
           "name": "O que é o PGE?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O PGE, Programa de Governança Empresarial, é um treinamento da XR Advisor para donos e executivos de pequenas e médias empresas. Ensina a estruturar governança, gestão e números para a empresa crescer com profissionalização, captar recursos ou passar por um processo de M&A."
+            "text": "O PGE, Programa de Governança Empresarial, é um treinamento em aulas gravadas da XR Advisor para donos e executivos de pequenas e médias empresas. Ensina a estruturar governança, gestão e números para a empresa crescer com profissionalização, captar recursos ou passar por um processo de M&A."
           }
         },
         {
@@ -2639,7 +3018,7 @@
           "name": "Qual é o formato e a duração?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "O formato e a carga horária serão divulgados com a data da turma."
+            "text": "São aulas gravadas. Depois da compra, você recebe o acesso e assiste no seu ritmo. A carga horária será divulgada com a data da turma."
           }
         },
         {
@@ -2817,7 +3196,7 @@
     var FAIXAS = [
       { ate: 1, estagio: "Fundador faz tudo", texto: "O PGE começa pelo diagnóstico, para mapear o que ainda depende só do fundador." },
       { ate: 4, estagio: "Time executa", texto: "Parte da estrutura existe. O treinamento trabalha organograma, acordo de sócios e conselho." },
-      { ate: 6, estagio: "Gestão com dado", texto: "A gestão já roda. O passo seguinte é governança e preparação para captar ou vender." },
+      { ate: 6, estagio: "Gestão com dados", texto: "A gestão já roda. O passo seguinte é governança e preparação para captar ou vender." },
       { ate: 8, estagio: "Conselho decide", texto: "A empresa está perto do que um investidor pede. O PGE aprofunda valuation, estrutura de capital e M&A." }
     ];
 
@@ -3024,6 +3403,48 @@
   };
   window.addEventListener("scroll", atualizaVisiveis, { passive: true });
   window.addEventListener("resize", atualizaVisiveis);
+
+  /* --- Conteúdo programático: o módulo no meio da tela acende e a escada sobe até ele --- */
+  var programa = raiz.querySelector("[data-programa]");
+  if (programa) {
+    var modulosP = Array.prototype.slice.call(programa.querySelectorAll(".pge-modulo"));
+    var degrausP = programa.querySelectorAll("[data-degraus] span");
+    var etapasP = programa.querySelectorAll("[data-etapas] span");
+    var numP = programa.querySelector("[data-modulo-num]");
+    var moduloAtual = -1;
+    var ativaModulo = function (i) {
+      if (i === moduloAtual) return;
+      var primeira = moduloAtual < 0;
+      moduloAtual = i;
+      modulosP.forEach(function (m, j) { m.classList.toggle("pge-ativo", j === i); });
+      Array.prototype.forEach.call(degrausP, function (d, j) {
+        d.classList.toggle("pge-cheio", j < i);
+        d.classList.toggle("pge-atual", j === i);
+      });
+      // Dois módulos por etapa
+      Array.prototype.forEach.call(etapasP, function (e, j) { e.classList.toggle("pge-ativo", j === Math.floor(i / 2)); });
+      numP.textContent = (i < 9 ? "0" : "") + (i + 1);
+      programa.classList.toggle("pge-tom-alt", i % 2 === 1);
+      if (anima && !primeira && numP.animate) {
+        numP.animate([{ opacity: 0, translate: "0 16%" }, { opacity: 1, translate: "0 0" }], { duration: 320, easing: "cubic-bezier(0.2, 0, 0, 1)" });
+      }
+    };
+    ativaModulo(0);
+    // O módulo atual é o que está no meio da tela; pela posição, para funcionar também em embeds
+    var checaModulo = function () {
+      var meio = window.innerHeight / 2;
+      for (var i = 0; i < modulosP.length; i++) {
+        var caixa = modulosP[i].getBoundingClientRect();
+        if (caixa.top <= meio && caixa.bottom > meio) {
+          ativaModulo(i);
+          return;
+        }
+      }
+    };
+    window.addEventListener("scroll", checaModulo, { passive: true });
+    window.addEventListener("resize", checaModulo);
+    checaModulo();
+  }
 
   /* --- Hero, em três tempos (a única entrada orquestrada da página):
          1. células surgem uma a uma a partir do canto superior direito até cobrir o hero;
