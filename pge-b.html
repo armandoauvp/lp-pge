@@ -1068,9 +1068,11 @@
   display: none;
 }
 
+/* O respiro de cima é o mesmo dos módulos: o número começa na altura do primeiro */
 #pge .pge-programa-placar {
   position: sticky;
-  top: calc(var(--pge-topo) + 112px);
+  top: calc(var(--pge-topo) + 22vh);
+  padding-top: clamp(32px, 4vw, 48px);
 }
 
 #pge .pge-programa-num {
@@ -1099,7 +1101,7 @@
   margin-top: 24px;
 }
 
-/* Oito degraus crescentes; os já vencidos ficam claros e o atual em coral */
+/* Oito degraus: começam todos na altura do primeiro e crescem ao serem alcançados; os vencidos ficam claros e o atual em coral */
 #pge .pge-degraus {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -1110,17 +1112,19 @@
 
 #pge .pge-degraus span {
   display: block;
-  height: calc(var(--n) / 8 * 100%);
+  height: calc(100% / 8);
   border-radius: 6px;
   background: var(--pge-base-600);
-  transition: background-color 320ms var(--pge-ease);
+  transition: background-color 320ms var(--pge-ease), height 620ms cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 #pge .pge-degraus span.pge-cheio {
+  height: calc(var(--n) / 8 * 100%);
   background: var(--pge-neutro-300);
 }
 
 #pge .pge-degraus span.pge-atual {
+  height: calc(var(--n) / 8 * 100%);
   background: var(--pge-acento);
 }
 
@@ -1268,7 +1272,9 @@
     gap: 4px;
     height: 8px;
   }
-  #pge .pge-degraus span {
+  #pge .pge-degraus span,
+  #pge .pge-degraus span.pge-cheio,
+  #pge .pge-degraus span.pge-atual {
     height: 100%;
     border-radius: 3px;
   }
@@ -2471,7 +2477,7 @@
           <h2 id="pge-programa-titulo" class="pge-h2" data-revela="titulo">Conteúdo programático</h2>
           <p class="pge-texto" data-revela style="--d:150">São oito módulos de aulas gravadas, organizados nas quatro etapas. Depois da compra, você recebe o acesso às aulas.</p>
         </div>
-        <!-- Escada do kit gráfico: sobe com o scroll, até o módulo que está no meio da tela -->
+        <!-- Escada do kit gráfico: sobe com o scroll, até o módulo que está na altura do número -->
         <div class="pge-programa-placar" aria-hidden="true">
           <p class="pge-programa-num"><span data-modulo-num>01</span><small>de 8</small></p>
           <div class="pge-programa-escada">
@@ -3404,7 +3410,7 @@
   window.addEventListener("scroll", atualizaVisiveis, { passive: true });
   window.addEventListener("resize", atualizaVisiveis);
 
-  /* --- Conteúdo programático: o módulo no meio da tela acende e a escada sobe até ele --- */
+  /* --- Conteúdo programático: o módulo na altura do número acende e a escada sobe até ele --- */
   var programa = raiz.querySelector("[data-programa]");
   if (programa) {
     var modulosP = Array.prototype.slice.call(programa.querySelectorAll(".pge-modulo"));
@@ -3430,12 +3436,14 @@
       }
     };
     ativaModulo(0);
-    // O módulo atual é o que está no meio da tela; pela posição, para funcionar também em embeds
+    // O módulo atual é o que passa na altura do número; na barra do celular, o que passa no meio da tela.
+    // Pela posição, para funcionar também em embeds
+    var doisLados = window.matchMedia("(min-width: 961px)");
     var checaModulo = function () {
-      var meio = window.innerHeight / 2;
+      var linha = doisLados.matches ? numP.parentElement.getBoundingClientRect().bottom : window.innerHeight / 2;
       for (var i = 0; i < modulosP.length; i++) {
         var caixa = modulosP[i].getBoundingClientRect();
-        if (caixa.top <= meio && caixa.bottom > meio) {
+        if (caixa.top <= linha && caixa.bottom > linha) {
           ativaModulo(i);
           return;
         }
