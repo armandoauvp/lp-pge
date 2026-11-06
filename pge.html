@@ -960,7 +960,6 @@
 
 #pge .pge-num span {
   display: block;
-  transition: color 220ms var(--pge-ease);
 }
 
 #pge .pge-num::after {
@@ -974,46 +973,21 @@
   background: var(--pge-acento);
 }
 
-#pge .pge-etapa:hover .pge-num span {
-  color: var(--pge-acento);
-}
-
-/* Ao aparecer: o número sobe por trás da máscara, o fio da linha se desenha e o texto chega em seguida */
-#pge.pge-anima .pge-etapa {
-  border-bottom-color: transparent;
-}
-
-#pge.pge-anima .pge-etapa::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 1px;
-  background: var(--pge-neutro-300);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1000ms var(--pge-ease);
-}
-
+/* Ao aparecer: o número sobe por trás da máscara e o texto chega logo depois. Os fios ficam sempre visíveis */
 #pge.pge-anima .pge-etapa .pge-num span {
   translate: 0 105%;
-  transition: translate 800ms var(--pge-ease), color 220ms var(--pge-ease);
+  transition: translate 600ms var(--pge-ease);
 }
 
 #pge.pge-anima .pge-etapa .pge-num::after {
   scale: 0;
-  transition: scale 300ms var(--pge-ease) 600ms;
+  transition: scale 260ms var(--pge-ease) 400ms;
 }
 
 #pge.pge-anima .pge-etapa > :is(h3, p) {
   opacity: 0;
-  translate: 0 14px;
-  transition: opacity 600ms var(--pge-ease), translate 700ms var(--pge-ease);
-}
-
-#pge.pge-anima .pge-etapa.pge-visto::after {
-  transform: scaleX(1);
+  translate: 0 10px;
+  transition: opacity 500ms var(--pge-ease), translate 550ms var(--pge-ease);
 }
 
 #pge.pge-anima .pge-etapa.pge-visto .pge-num span {
@@ -1029,9 +1003,9 @@
   translate: 0 0;
 }
 
-#pge.pge-anima .pge-etapa.pge-visto > h3 { transition-delay: 180ms; }
-#pge.pge-anima .pge-etapa.pge-visto > .pge-aprende { transition-delay: 280ms; }
-#pge.pge-anima .pge-etapa.pge-visto > .pge-leva { transition-delay: 380ms; }
+#pge.pge-anima .pge-etapa.pge-visto > h3 { transition-delay: 80ms; }
+#pge.pge-anima .pge-etapa.pge-visto > .pge-aprende { transition-delay: 140ms; }
+#pge.pge-anima .pge-etapa.pge-visto > .pge-leva { transition-delay: 200ms; }
 
 #pge .pge-etapa h3 {
   padding-top: 4px;
@@ -1063,7 +1037,6 @@
 
 /* ---------- Conteúdo programático ---------- */
 
-/* Visão geral estática: uma coluna por etapa, com os módulos de cada uma */
 #pge .pge-programa .pge-wrap {
   padding-block: clamp(80px, 11vw, 144px);
 }
@@ -1074,139 +1047,117 @@
   white-space: nowrap;
 }
 
-#pge .pge-grade {
+/* Um card por módulo, como na AUVP Escola; o oitavo espaço é a chamada para a turma */
+#pge .pge-modulos {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
   margin-top: clamp(40px, 5vw, 64px);
-  overflow: hidden;
-  border: var(--pge-fio-escuro);
-  border-radius: var(--pge-r-painel);
-}
-
-/* Cabeçalho e os dois módulos dividem as mesmas linhas em todas as colunas, para ficarem alinhados */
-#pge .pge-coluna {
-  display: grid;
-  grid-row: span 3;
-  grid-template-rows: subgrid;
-  padding: 28px 24px 32px;
-}
-
-#pge .pge-modulos {
-  display: contents;
-}
-
-/* Colunas em dois tons alternados */
-#pge .pge-coluna:nth-child(odd) {
-  background: #162033;
-}
-
-/* Reserva a altura da pilha mais alta: os nomes das etapas ficam na mesma linha */
-#pge .pge-coluna-pilha {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 5px;
-  height: 71px;
-}
-
-#pge .pge-coluna-pilha span {
-  display: block;
-  width: 14px;
-  height: 14px;
-  border-radius: calc(14px * var(--pge-r));
-  background: var(--pge-base-400);
-}
-
-#pge .pge-coluna-pilha span:first-child {
-  background: var(--pge-acento);
-}
-
-#pge .pge-coluna-cabeca p {
-  margin-top: 20px;
-  color: var(--pge-neutro-300);
-  font-size: 14px;
-}
-
-#pge .pge-coluna-cabeca h3 {
-  margin-top: 2px;
-  font-size: var(--pge-t-2);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
 }
 
 #pge .pge-modulo {
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: var(--pge-fio-escuro);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px;
+  border: var(--pge-fio-escuro);
+  border-radius: var(--pge-r-painel);
+  background: #162033;
+  transition: border-color 220ms var(--pge-ease), background-color 220ms var(--pge-ease);
 }
 
 #pge .pge-modulo-tag {
-  color: var(--pge-neutro-300);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-#pge .pge-modulo h4 {
-  margin-top: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-}
-
-#pge .pge-modulo ul {
-  margin-top: 14px;
-}
-
-#pge .pge-modulo ul li {
-  position: relative;
-  padding-left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: var(--pge-neutro-300);
   font-size: 14px;
-  line-height: 1.45;
+  font-weight: 600;
 }
 
-#pge .pge-modulo ul li + li {
-  margin-top: 8px;
-}
-
-#pge .pge-modulo ul li::before {
+/* Célula coral da marca antes do número do módulo */
+#pge .pge-modulo-tag::before {
   content: "";
-  position: absolute;
-  top: 0.55em;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 2px;
-  background: var(--pge-base-400);
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--pge-acento);
+  transition: scale 260ms var(--pge-ease);
+}
+
+/* Hover só em quem tem mouse: a borda acende em coral e a célula da etiqueta cresce */
+@media (hover: hover) {
+  #pge .pge-modulo:hover {
+    border-color: var(--pge-acento);
+  }
+
+  #pge .pge-modulo:not(.pge-modulo-cta):hover {
+    background-color: #1a263b;
+  }
+
+  #pge .pge-modulo:hover .pge-modulo-tag::before {
+    scale: 1.4;
+  }
+}
+
+#pge .pge-modulo h3 {
+  margin-top: 16px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+#pge .pge-modulo-texto {
+  margin-top: 12px;
+  color: var(--pge-neutro-300);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* A contagem fica sempre no pé do card */
+#pge .pge-modulo-aulas {
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--pge-neutro-300);
+  font-size: 14px;
+}
+
+#pge .pge-modulo-cta {
+  border-color: transparent;
+  background: var(--pge-base-600);
+}
+
+#pge .pge-modulo-cta .pge-botao {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-inline: 20px;
+}
+
+#pge .pge-modulo-cta h3 {
+  margin-bottom: 24px;
 }
 
 @media (max-width: 1100px) {
-  #pge .pge-grade {
+  #pge .pge-modulos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  /* Em duas colunas, os tons alternam em xadrez */
-  #pge .pge-coluna:nth-child(3) {
-    background: none;
-  }
-  #pge .pge-coluna:nth-child(4) {
-    background: #162033;
   }
 }
 
 @media (max-width: 560px) {
-  #pge .pge-grade {
+  #pge .pge-modulos {
     grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
-  #pge .pge-coluna-pilha {
-    height: auto;
+
+  #pge .pge-modulo {
+    padding: 24px 20px;
   }
-  #pge .pge-coluna:nth-child(3) {
-    background: #162033;
-  }
-  #pge .pge-coluna:nth-child(4) {
-    background: none;
+
+  #pge .pge-modulo-texto {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 }
 
@@ -2354,7 +2305,7 @@
       <div class="pge-wrap">
         <div class="pge-etapas-cabeca">
           <h2 id="pge-etapas-titulo" class="pge-display" data-revela="titulo">Quatro etapas</h2>
-          <p class="pge-texto" data-revela style="--d:150">Esta é a grade do treinamento: quatro etapas em aulas gravadas, do diagnóstico à preparação para captar ou vender. Cada etapa termina com algo que você aplica na sua empresa.</p>
+          <p class="pge-texto" data-revela style="--d:150">O treinamento percorre quatro etapas, do diagnóstico à preparação para captar ou vender. Cada etapa termina com algo que você aplica na sua empresa.</p>
         </div>
         <ol>
           <li class="pge-etapa" data-ver>
@@ -2385,130 +2336,61 @@
       </div>
     </section>
 
-    <!-- VALIDAR: módulos e tópicos são uma sugestão inicial, a partir das etapas e dos oito pontos. Revisar com quem desenhou o treinamento -->
+    <!-- Fonte: planilha "Controle de Aulas - XR Advisor - Aulas Gravadas" (06/11/2026), só aulas já gravadas.
+         VALIDAR: as descrições de cada módulo foram escritas a partir das pautas da planilha -->
     <section id="pge-programa" class="pge-programa pge-escuro" aria-labelledby="pge-programa-titulo">
       <div class="pge-wrap">
         <div class="pge-intro">
           <h2 id="pge-programa-titulo" class="pge-h2" data-revela="titulo">Conteúdo programático</h2>
-          <p class="pge-texto" data-revela style="--d:150">São oito módulos de aulas gravadas, organizados nas quatro etapas. Depois da compra, você recebe o acesso às aulas.</p>
+          <p class="pge-texto" data-revela style="--d:150">São 7 módulos e 40 aulas gravadas. Depois da compra, você recebe o acesso às aulas.</p>
         </div>
-        <ol class="pge-grade" data-revela-grupo>
-          <li class="pge-coluna">
-            <div class="pge-coluna-cabeca">
-              <span class="pge-coluna-pilha" aria-hidden="true"><span></span></span>
-              <p>Etapa 1</p>
-              <h3>Diagnóstico</h3>
-            </div>
-            <ul class="pge-modulos">
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 1</p>
-                <h4>O estágio da sua empresa</h4>
-                <ul>
-                  <li>Os quatro estágios, do fundador que faz tudo ao conselho</li>
-                  <li>Mapa de maturidade: pessoas, processos, tecnologia e governança</li>
-                  <li>Quanto da operação depende do fundador</li>
-                  <li>Como definir o que resolver primeiro</li>
-                </ul>
-              </li>
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 2</p>
-                <h4>A empresa pelos olhos do investidor</h4>
-                <ul>
-                  <li>Os oito pontos que a XR Advisor avalia antes de investir</li>
-                  <li>Consistência de receita e dependência de clientes</li>
-                  <li>Qualidade do EBITDA</li>
-                  <li>Posição de mercado e concorrência</li>
-                </ul>
-              </li>
-            </ul>
+        <ol class="pge-modulos" data-revela-grupo>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 1</p>
+            <h3>O jogo, as regras e o ambiente econômico</h3>
+            <p class="pge-modulo-texto">Como o capitalismo funciona para quem tem empresa: crédito ou equity, o que faz uma empresa valer mais, o mercado de M&amp;A no middle market e o timing das decisões ao longo do ciclo econômico.</p>
+            <p class="pge-modulo-aulas">7 aulas</p>
           </li>
-          <li class="pge-coluna">
-            <div class="pge-coluna-cabeca">
-              <span class="pge-coluna-pilha" aria-hidden="true"><span></span><span></span></span>
-              <p>Etapa 2</p>
-              <h3>Estrutura</h3>
-            </div>
-            <ul class="pge-modulos">
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 3</p>
-                <h4>Sócios e acordo de sócios</h4>
-                <ul>
-                  <li>O papel de cada sócio na operação e na sociedade</li>
-                  <li>Cláusulas essenciais do acordo de sócios</li>
-                  <li>Vesting e entrada de novos sócios</li>
-                  <li>Holding e organização societária</li>
-                  <li>Saída de sócio e sucessão</li>
-                </ul>
-              </li>
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 4</p>
-                <h4>Organograma e conselho</h4>
-                <ul>
-                  <li>Organograma: cada função com um dono</li>
-                  <li>Alçadas: o que a diretoria decide e o que escala ao fundador</li>
-                  <li>Conselho consultivo: quando montar e quem convidar</li>
-                  <li>Pauta, ata e rotina de reuniões</li>
-                </ul>
-              </li>
-            </ul>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 2</p>
+            <h3>Pessoas e cultura</h3>
+            <p class="pge-modulo-texto">Como escolher sócios, atrair e entrevistar quem já está empregado e transformar valores em cultura no dia a dia: quem você contrata, promove e demite.</p>
+            <p class="pge-modulo-aulas">5 aulas</p>
           </li>
-          <li class="pge-coluna">
-            <div class="pge-coluna-cabeca">
-              <span class="pge-coluna-pilha" aria-hidden="true"><span></span><span></span><span></span></span>
-              <p>Etapa 3</p>
-              <h3>Gestão</h3>
-            </div>
-            <ul class="pge-modulos">
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 5</p>
-                <h4>Metas e rotina de gestão</h4>
-                <ul>
-                  <li>Do planejamento estratégico às metas por área</li>
-                  <li>Indicadores e rotina semanal de acompanhamento</li>
-                  <li>Comitê executivo que decide sem esperar o fundador</li>
-                  <li>Formação de líderes e remuneração variável</li>
-                </ul>
-              </li>
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 6</p>
-                <h4>Os números da empresa</h4>
-                <ul>
-                  <li>DRE gerencial e fluxo de caixa</li>
-                  <li>EBITDA e margem por produto ou cliente</li>
-                  <li>Orçamento e controladoria</li>
-                  <li>Separação entre as contas dos sócios e as da empresa</li>
-                </ul>
-              </li>
-            </ul>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 3</p>
+            <h3>Processo, tecnologia e estrutura</h3>
+            <p class="pge-modulo-texto">Por que o processo vem antes da tecnologia, os níveis da empresa com o indicador de cada um e o organograma que sustenta a escala.</p>
+            <p class="pge-modulo-aulas">3 aulas</p>
           </li>
-          <li class="pge-coluna">
-            <div class="pge-coluna-cabeca">
-              <span class="pge-coluna-pilha" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
-              <p>Etapa 4</p>
-              <h3>Valor</h3>
-            </div>
-            <ul class="pge-modulos">
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 7</p>
-                <h4>Valuation e estrutura de capital</h4>
-                <ul>
-                  <li>Como avaliar uma empresa: múltiplos e fluxo de caixa descontado</li>
-                  <li>O que aumenta e o que reduz o valor</li>
-                  <li>Dívida, sócios e participações</li>
-                  <li>Quando faz sentido buscar smart money</li>
-                </ul>
-              </li>
-              <li class="pge-modulo">
-                <p class="pge-modulo-tag">Módulo 8</p>
-                <h4>Captação e M&amp;A</h4>
-                <ul>
-                  <li>Captar, vender ou comprar: como decidir</li>
-                  <li>Documentos e números que o investidor pede na diligência</li>
-                  <li>As fases de um M&amp;A, da tese ao fechamento</li>
-                  <li>Term sheet e negociação</li>
-                </ul>
-              </li>
-            </ul>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 4</p>
+            <h3>Gestão financeira e gestão por dados</h3>
+            <p class="pge-modulo-texto">Os quatro pilares da gestão financeira: preparação, processos, indicadores e análise. Plano de contas, DRE, balanço, KPIs e o painel para decidir com dados.</p>
+            <p class="pge-modulo-aulas">13 aulas</p>
+          </li>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 5</p>
+            <h3>Planejamento estratégico e orçamentário</h3>
+            <p class="pge-modulo-texto">Missão, visão e proposta de valor, o posicionamento no mercado e a tradução da estratégia em números com o planejamento orçamentário.</p>
+            <p class="pge-modulo-aulas">4 aulas</p>
+          </li>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 6</p>
+            <h3>Governança, sociedade e partnership</h3>
+            <p class="pge-modulo-texto">Acordo de sócios, conselho consultivo e de administração, e partnership, vesting e stock options para reter quem faz a empresa crescer.</p>
+            <p class="pge-modulo-aulas">3 aulas</p>
+          </li>
+          <li class="pge-modulo">
+            <p class="pge-modulo-tag">Módulo 7</p>
+            <h3>Valuation, equity e M&amp;A</h3>
+            <p class="pge-modulo-texto">Quanto vale a sua empresa, como a contabilidade mexe no preço, a diligência preventiva, o roadshow com compradores e como se proteger de conflitos de interesse num M&amp;A.</p>
+            <p class="pge-modulo-aulas">5 aulas</p>
+          </li>
+          <li class="pge-modulo pge-modulo-cta">
+            <p class="pge-modulo-tag">Primeira turma</p>
+            <h3 data-texto-checkout="Comece pelo módulo 1 assim que receber o acesso">As inscrições da primeira turma abrem em breve</h3>
+            <a class="pge-botao pge-botao-primario pge-caixa-alta" href="#pge-interesse" data-cta="programa" data-texto-checkout="GARANTIR MINHA VAGA">ENTRE PARA A PRIMEIRA TURMA</a>
           </li>
         </ol>
       </div>
@@ -3029,11 +2911,37 @@
     else if (Array.isArray(window.dataLayer)) window.dataLayer.push(Object.assign({ event: nome }, parametros));
   }
 
+  /* ===== UTMs: valem a visita inteira e seguem para o checkout e os links internos ===== */
+  // As da URL substituem as guardadas; sem UTM na URL, valem as guardadas na sessão
+  var CHAVE_UTM = "pge-utm";
+  var utms = {};
+  new URLSearchParams(location.search).forEach(function (valor, chave) {
+    if (chave.indexOf("utm_") === 0 && valor) utms[chave] = valor;
+  });
+  try {
+    if (Object.keys(utms).length) sessionStorage.setItem(CHAVE_UTM, JSON.stringify(utms));
+    else utms = JSON.parse(sessionStorage.getItem(CHAVE_UTM) || "{}") || {};
+  } catch (falha) { /* armazenamento bloqueado: ficam só as da URL */ }
+
+  // Acrescenta as UTMs sem sobrescrever parâmetros que o link já tem
+  function comUtm(endereco) {
+    if (!Object.keys(utms).length) return endereco;
+    try {
+      var u = new URL(endereco, location.href);
+      Object.keys(utms).forEach(function (chave) {
+        if (!u.searchParams.has(chave)) u.searchParams.set(chave, utms[chave]);
+      });
+      return u.toString();
+    } catch (falha) {
+      return endereco;
+    }
+  }
+
   /* ===== CTAs e checkout ===== */
   var ctas = raiz.querySelectorAll("[data-cta]");
   ctas.forEach(function (a) {
     if (CONFIG.checkoutUrl) {
-      a.setAttribute("href", CONFIG.checkoutUrl);
+      a.setAttribute("href", comUtm(CONFIG.checkoutUrl));
       a.textContent = a.getAttribute("data-texto-checkout") || a.textContent;
     }
     a.addEventListener("click", function () {
@@ -3043,6 +2951,13 @@
       evento("pge_clique_cta", params);
     });
   });
+
+  // Textos que não são CTA mas também mudam quando o checkout entra
+  if (CONFIG.checkoutUrl) {
+    raiz.querySelectorAll("[data-texto-checkout]:not([data-cta])").forEach(function (el) {
+      el.textContent = el.getAttribute("data-texto-checkout");
+    });
+  }
 
   /* ===== Âncoras internas com rolagem suave (o tema não controla o html) ===== */
   raiz.addEventListener("click", function (e) {
@@ -3067,6 +2982,15 @@
     politica.hidden = false;
   }
 
+  // Links para outras páginas do mesmo site levam as UTMs; âncoras e sites de fora ficam como estão
+  raiz.querySelectorAll("a[href]").forEach(function (a) {
+    var href = a.getAttribute("href");
+    if (!href || href.charAt(0) === "#" || a.hasAttribute("data-cta")) return;
+    try {
+      if (new URL(href, location.href).origin === location.origin) a.setAttribute("href", comUtm(href));
+    } catch (falha) { /* href inválido: deixa como está */ }
+  });
+
   function mostraErro(texto) {
     erro.textContent = texto;
     erro.hidden = false;
@@ -3077,7 +3001,8 @@
       e.preventDefault();
       if (!form.reportValidity()) return;
 
-      var destino = CONFIG.webhookUrl || window.PGE_WEBHOOK_TESTE;
+      // A prévia local (scripts/preview.mjs) define PGE_WEBHOOK_TESTE: testes nunca chegam à planilha real
+      var destino = window.PGE_WEBHOOK_TESTE || CONFIG.webhookUrl;
       if (!destino) {
         console.warn("[PGE] CONFIG.webhookUrl está vazio: o formulário não tem para onde enviar.");
         mostraErro("O envio ainda não está configurado. Escreva para contato@xradvisor.com.br e avisamos você sobre a primeira turma.");
@@ -3087,9 +3012,7 @@
       var dados = new URLSearchParams(new FormData(form));
       dados.set("origem", "lp-pge");
       dados.set("pagina", location.href.split("#")[0]);
-      new URLSearchParams(location.search).forEach(function (valor, chave) {
-        if (chave.indexOf("utm_") === 0) dados.set(chave, valor);
-      });
+      Object.keys(utms).forEach(function (chave) { dados.set(chave, utms[chave]); });
 
       erro.hidden = true;
       botaoEnviar.disabled = true;
@@ -3202,7 +3125,8 @@
         vistos.unobserve(en.target);
         alvos.delete(en.target);
       });
-    }, { threshold: 0, rootMargin: "0px 0px -10% 0px" });
+      // Começa um pouco antes de o elemento entrar na tela, para não aparecer atrasado na rolagem
+    }, { threshold: 0, rootMargin: "0px 0px 8% 0px" });
     var observa = function (el) {
       var obs = el.matches('[data-revela="titulo"], .pge-retrato') ? el.parentElement : el;
       // Um pai com display: contents não tem caixa e nunca intersecta; sobe até um que tenha
@@ -3224,7 +3148,7 @@
 
     // Reserva por posição: se o observer não entregar (embeds, janelas cobertas), o scroll revela do mesmo jeito
     var checaPendentes = function () {
-      var limite = window.innerHeight * 0.92;
+      var limite = window.innerHeight * 1.08;
       alvos.forEach(function (lista, obs) {
         var r = obs.getBoundingClientRect();
         if (r.top < limite && r.bottom > 0) {
