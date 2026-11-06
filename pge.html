@@ -1122,19 +1122,69 @@
   font-size: 14px;
 }
 
+/* Card da turma: fundo mais claro com brilho coral no canto e a malha progressiva da marca */
 #pge .pge-modulo-cta {
-  border-color: transparent;
-  background: var(--pge-base-600);
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(228, 96, 74, 0.45);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(228, 96, 74, 0.22), transparent 60%),
+    var(--pge-base-600);
 }
 
-#pge .pge-modulo-cta .pge-botao {
-  align-self: flex-start;
-  margin-top: auto;
-  padding-inline: 20px;
+#pge .pge-modulo-cta .pge-modulo-tag {
+  color: var(--pge-acento-claro);
 }
 
 #pge .pge-modulo-cta h3 {
-  margin-bottom: 24px;
+  font-size: 23px;
+}
+
+#pge .pge-modulo-meta {
+  margin-top: 10px;
+  color: var(--pge-neutro-300);
+  font-size: 14px;
+}
+
+/* Células crescem da esquerda para a direita; as três últimas colunas já em coral */
+#pge .pge-modulo-malha {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  align-items: center;
+  justify-items: center;
+  row-gap: 6px;
+  margin: auto 0 20px;
+  padding-top: 24px;
+}
+
+#pge .pge-modulo-malha span {
+  --t: calc(5px + var(--c) * 2px);
+  width: var(--t);
+  height: var(--t);
+  border-radius: calc(var(--t) * var(--pge-r));
+  background: var(--pge-base-400);
+  opacity: calc(0.35 + var(--c) * 0.09);
+  transition: background-color 300ms var(--pge-ease), scale 300ms var(--pge-ease);
+  transition-delay: calc(var(--c) * 35ms);
+}
+
+#pge .pge-modulo-malha span:nth-child(8n + 6),
+#pge .pge-modulo-malha span:nth-child(8n + 7),
+#pge .pge-modulo-malha span:nth-child(8n) {
+  background: var(--pge-acento);
+}
+
+#pge .pge-modulo-cta .pge-botao {
+  width: 100%;
+  padding-inline: 16px;
+}
+
+/* No hover a malha acende em onda, da esquerda para a direita */
+@media (hover: hover) {
+  #pge .pge-modulo-cta:hover .pge-modulo-malha span {
+    background: var(--pge-acento-claro);
+    scale: 1.12;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -2390,6 +2440,8 @@
           <li class="pge-modulo pge-modulo-cta">
             <p class="pge-modulo-tag">Primeira turma</p>
             <h3 data-texto-checkout="Comece pelo módulo 1 assim que receber o acesso">As inscrições da primeira turma abrem em breve</h3>
+            <p class="pge-modulo-meta">7 módulos · 40 aulas gravadas</p>
+            <div class="pge-modulo-malha" aria-hidden="true"><span style="--c:0"></span><span style="--c:1"></span><span style="--c:2"></span><span style="--c:3"></span><span style="--c:4"></span><span style="--c:5"></span><span style="--c:6"></span><span style="--c:7"></span><span style="--c:0"></span><span style="--c:1"></span><span style="--c:2"></span><span style="--c:3"></span><span style="--c:4"></span><span style="--c:5"></span><span style="--c:6"></span><span style="--c:7"></span><span style="--c:0"></span><span style="--c:1"></span><span style="--c:2"></span><span style="--c:3"></span><span style="--c:4"></span><span style="--c:5"></span><span style="--c:6"></span><span style="--c:7"></span></div>
             <a class="pge-botao pge-botao-primario pge-caixa-alta" href="#pge-interesse" data-cta="programa" data-texto-checkout="GARANTIR MINHA VAGA">ENTRE PARA A PRIMEIRA TURMA</a>
           </li>
         </ol>
